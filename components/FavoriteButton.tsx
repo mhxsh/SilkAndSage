@@ -7,12 +7,14 @@ interface FavoriteButtonProps {
     pageId: string
     pageSlug: string
     initialFavorited: boolean
+    dict?: any
 }
 
 export default function FavoriteButton({
     pageId,
     pageSlug,
     initialFavorited,
+    dict,
 }: FavoriteButtonProps) {
     const [favorited, setFavorited] = useState(initialFavorited)
     const [isPending, startTransition] = useTransition()
@@ -33,13 +35,16 @@ export default function FavoriteButton({
         })
     }
 
+    const favoritedText = dict?.article?.favorited || 'Favorited'
+    const favoriteText = dict?.article?.favorite || 'Favorite'
+
     return (
         <button
             onClick={handleClick}
             disabled={isPending}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${favorited
-                    ? 'bg-gold/10 text-gold hover:bg-gold/20'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-gold/10 text-gold hover:bg-gold/20'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 } disabled:opacity-50`}
         >
             <svg
@@ -55,7 +60,7 @@ export default function FavoriteButton({
                     d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                 />
             </svg>
-            <span className="font-medium">{favorited ? '已收藏' : '收藏'}</span>
+            <span className="font-medium">{favorited ? favoritedText : favoriteText}</span>
         </button>
     )
 }

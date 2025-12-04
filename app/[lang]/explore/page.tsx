@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { getPublishedPages } from '@/lib/data/pages'
 import { getDictionary } from '@/get-dictionary'
 import { Locale } from '@/i18n-config'
+import { translateTag } from '@/lib/data/tags'
 
 export default async function ExplorePage({
     params,
@@ -18,16 +19,16 @@ export default async function ExplorePage({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-serif font-bold text-gray-900 mb-4">
-                        {dict.explore.title}
+                        {dict.explore_page.title}
                     </h1>
                     <p className="text-lg text-gray-600">
-                        {dict.explore.subtitle}
+                        {dict.explore_page.subtitle}
                     </p>
                 </div>
 
                 {pages.length === 0 ? (
                     <div className="text-center py-16">
-                        <p className="text-gray-500 text-lg">{dict.explore.no_articles}</p>
+                        <p className="text-gray-500 text-lg">{dict.explore_page.no_articles}</p>
                     </div>
                 ) : (
                     <>
@@ -58,9 +59,9 @@ export default async function ExplorePage({
                                             {page.translations.title}
                                         </h2>
 
-                                        {page.tags && page.tags.length > 0 && (
+                                        {page.translations.tags && page.translations.tags.length > 0 && (
                                             <div className="flex flex-wrap gap-2 mb-3">
-                                                {page.tags.slice(0, 3).map((tag) => (
+                                                {page.translations.tags.slice(0, 3).map((tag) => (
                                                     <span
                                                         key={tag}
                                                         className="text-xs px-2 py-1 bg-sage/10 text-sage rounded-full"
@@ -95,7 +96,7 @@ export default async function ExplorePage({
 
                         {/* Pagination - placeholder for future */}
                         <div className="mt-12 text-center text-gray-500">
-                            {dict.explore.pagination_show.replace('{count}', pages.length.toString()).replace('{total}', total.toString())}
+                            {dict.explore_page.showing_count.replace('{count}', pages.length.toString()).replace('{total}', total.toString())}
                         </div>
                     </>
                 )}

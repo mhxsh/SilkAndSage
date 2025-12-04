@@ -8,8 +8,7 @@ interface CommentFormProps {
     pageSlug: string
     parentId?: string
     onSuccess?: () => void
-    placeholder?: string
-    buttonText?: string
+    dict?: any
 }
 
 export default function CommentForm({
@@ -17,18 +16,22 @@ export default function CommentForm({
     pageSlug,
     parentId,
     onSuccess,
-    placeholder = '写下你的想法...',
-    buttonText = '发表评论',
+    dict,
 }: CommentFormProps) {
     const [content, setContent] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
+    const placeholder = dict?.article?.write_comment || 'Write a comment...'
+    const buttonText = dict?.article?.submit_comment || 'Post'
+    const loadingText = dict?.common?.loading || 'Posting...'
+    const emptyError = dict?.article?.comment_empty || 'Comment cannot be empty'
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
         if (!content.trim()) {
-            setError('评论内容不能为空')
+            setError(emptyError)
             return
         }
 
@@ -68,7 +71,7 @@ export default function CommentForm({
                     disabled={loading || !content.trim()}
                     className="px-6 py-2 bg-sage text-white rounded-lg hover:bg-sage/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                    {loading ? '发送中...' : buttonText}
+                    {loading ? loadingText : buttonText}
                 </button>
             </div>
         </form>

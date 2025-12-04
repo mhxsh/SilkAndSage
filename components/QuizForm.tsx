@@ -14,9 +14,10 @@ interface QuizQuestion {
 
 interface QuizFormProps {
     questions: QuizQuestion[]
+    dict: any
 }
 
-export default function QuizForm({ questions }: QuizFormProps) {
+export default function QuizForm({ questions, dict }: QuizFormProps) {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [answers, setAnswers] = useState<Record<number, string>>({})
     const [loading, setLoading] = useState(false)
@@ -56,7 +57,7 @@ export default function QuizForm({ questions }: QuizFormProps) {
 
             if (!response.ok) {
                 const data = await response.json()
-                throw new Error(data.error || '提交失败')
+                throw new Error(data.error || dict.common.error)
             }
 
             const { result } = await response.json()
@@ -75,7 +76,7 @@ export default function QuizForm({ questions }: QuizFormProps) {
             {/* Progress Bar */}
             <div className="mb-8">
                 <div className="flex justify-between text-sm text-gray-600 mb-2">
-                    <span>问题 {currentQuestion + 1} / {questions.length}</span>
+                    <span>{dict.question_progress.replace('{current}', (currentQuestion + 1).toString()).replace('{total}', questions.length.toString())}</span>
                     <span>{Math.round(progress)}%</span>
                 </div>
                 <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -113,11 +114,8 @@ export default function QuizForm({ questions }: QuizFormProps) {
                     disabled={currentQuestion === 0 || loading}
                     className="px-6 py-2 text-sage border border-sage rounded-lg hover:bg-sage/10 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    上一题
+                    {dict.prev_btn}
                 </button>
-                <div className="text-sm text-gray-500 self-center">
-                    {Object.keys(answers).length > 0 && `已回答 ${Object.keys(answers).length} 题`}
-                </div>
             </div>
         </div>
     )

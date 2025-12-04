@@ -7,6 +7,7 @@ interface RatingStarsProps {
     pageSlug: string
     initialRating: number
     userRating: number | null
+    dict?: any
 }
 
 export default function RatingStars({
@@ -14,6 +15,7 @@ export default function RatingStars({
     pageSlug,
     initialRating,
     userRating,
+    dict,
 }: RatingStarsProps) {
     const [hoverRating, setHoverRating] = useState(0)
     const [currentRating, setCurrentRating] = useState(userRating || 0)
@@ -32,7 +34,7 @@ export default function RatingStars({
 
                 if (!response.ok) {
                     const data = await response.json()
-                    throw new Error(data.error || '评分失败')
+                    throw new Error(data.error || dict?.common?.error || 'Rating failed')
                 }
             } catch (error: any) {
                 alert(error.message)
@@ -55,8 +57,8 @@ export default function RatingStars({
                     >
                         <svg
                             className={`w-8 h-8 transition-colors ${star <= (hoverRating || currentRating)
-                                    ? 'fill-gold text-gold'
-                                    : 'fill-none text-gray-300'
+                                ? 'fill-gold text-gold'
+                                : 'fill-none text-gray-300'
                                 }`}
                             viewBox="0 0 20 20"
                             stroke="currentColor"
@@ -69,13 +71,13 @@ export default function RatingStars({
             </div>
             <div className="text-sm text-gray-600">
                 {currentRating > 0 ? (
-                    <span>你的评分: {currentRating} 星</span>
+                    <span>{dict?.article?.your_rating || 'Your rating'}: {currentRating} {dict?.article?.stars || 'stars'}</span>
                 ) : (
-                    <span>点击星星进行评分</span>
+                    <span>{dict?.article?.click_to_rate || 'Click stars to rate'}</span>
                 )}
             </div>
             <div className="text-xs text-gray-500">
-                平均评分: {initialRating.toFixed(1)} 星
+                {dict?.article?.average_rating || 'Average'}: {initialRating.toFixed(1)} {dict?.article?.stars || 'stars'}
             </div>
         </div>
     )

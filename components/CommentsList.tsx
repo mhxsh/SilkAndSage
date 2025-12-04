@@ -21,6 +21,7 @@ interface CommentsListProps {
     pageId: string
     pageSlug: string
     currentUserId?: string
+    dict?: any
 }
 
 function CommentItem({
@@ -29,12 +30,14 @@ function CommentItem({
     pageSlug,
     currentUserId,
     isReply = false,
+    dict,
 }: {
     comment: Comment
     pageId: string
     pageSlug: string
     currentUserId?: string
     isReply?: boolean
+    dict?: any
 }) {
     const [showReplyForm, setShowReplyForm] = useState(false)
     const [deleting, setDeleting] = useState(false)
@@ -44,14 +47,15 @@ function CommentItem({
         return (
             <div className={isReply ? 'ml-12' : ''}>
                 <div className="text-gray-500 italic py-2">
-                    评论用户已删除或不存在
+                    {dict?.article?.user_deleted || 'User deleted or not found'}
                 </div>
             </div>
         )
     }
 
     const handleDelete = async () => {
-        if (!confirm('确定要删除这条评论吗？')) return
+        const confirmMessage = dict?.article?.confirm_delete || 'Are you sure you want to delete this comment?'
+        if (!confirm(confirmMessage)) return
 
         setDeleting(true)
         const result = await removeComment(comment.id, pageSlug)
@@ -67,12 +71,19 @@ function CommentItem({
         const commentDate = new Date(date)
         const seconds = Math.floor((now.getTime() - commentDate.getTime()) / 1000)
 
-        if (seconds < 60) return '刚刚'
-        if (seconds < 3600) return `${Math.floor(seconds / 60)} 分钟前`
-        if (seconds < 86400) return `${Math.floor(seconds / 3600)} 小时前`
-        if (seconds < 604800) return `${Math.floor(seconds / 86400)} 天前`
-        return commentDate.toLocaleDateString('zh-CN')
+        if (seconds < 60) return dict?.article?.time_just_now || 'Just now'
+        if (seconds < 3600) return `${Math.floor(seconds / 60)} ${dict?.article?.time_minutes_ago || 'minutes ago'}`
+        if (seconds < 86400) return `${Math.floor(seconds / 3600)} ${dict?.article?.time_hours_ago || 'hours ago'}`
+        if (seconds < 604800) return `${Math.floor(seconds / 86400)} ${dict?.article?.time_days_ago || 'days ago'}`
+
+        // Format date based on locale
+        const locale = dict?.article?.locale || 'en-US'
+        return commentDate.toLocaleDateString(locale)
     }
+
+    const replyText = dict?.article?.reply || 'Reply'
+    const deleteText = dict?.article?.delete || 'Delete'
+    const deletingText = dict?.article?.deleting || 'Deleting...'
 
     return (
         <div className={`${isReply ? 'ml-12' : ''} ${deleting ? 'opacity-50' : ''}`}>
@@ -99,7 +110,7 @@ function CommentItem({
                                 onClick={() => setShowReplyForm(!showReplyForm)}
                                 className="text-sm text-sage hover:text-sage/80"
                             >
-                                回复
+                                {replyText}
                             </button>
                         )}
 
@@ -109,7 +120,7 @@ function CommentItem({
                                 disabled={deleting}
                                 className="text-sm text-red-600 hover:text-red-500 disabled:opacity-50"
                             >
-                                {deleting ? '删除中...' : '删除'}
+                                {deleting ? deletingText : deleteText}
                             </button>
                         )}
                     </div>
@@ -121,8 +132,7 @@ function CommentItem({
                                 pageSlug={pageSlug}
                                 parentId={comment.id}
                                 onSuccess={() => setShowReplyForm(false)}
-                                placeholder={`回复 @${comment.user.username}...`}
-                                buttonText="发送回复"
+                                dict={dict}
                             />
                         </div>
                     )}
@@ -140,6 +150,7 @@ function CommentItem({
                             pageSlug={pageSlug}
                             currentUserId={currentUserId}
                             isReply
+                            dict={dict}
                         />
                     ))}
                 </div>
@@ -153,11 +164,14 @@ export default function CommentsList({
     pageId,
     pageSlug,
     currentUserId,
+    dict,
 }: CommentsListProps) {
+    const noCommentsText = dict?.article?.no_comments || 'No comments yet. Be the first to comment!'
+
     return (
         <div className="space-y-6">
             {comments.length === 0 ? (
-                <p className="text-center text-gray-500 py-8">暂无评论，来发表第一条评论吧！</p>
+                <p className="text-center text-gray-500 py-8">{noCommentsText}</p>
             ) : (
                 comments.map((comment) => (
                     <CommentItem
@@ -166,6 +180,7 @@ export default function CommentsList({
                         pageId={pageId}
                         pageSlug={pageSlug}
                         currentUserId={currentUserId}
+                        dict={dict}
                     />
                 ))
             )}

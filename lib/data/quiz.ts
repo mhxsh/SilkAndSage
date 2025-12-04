@@ -12,12 +12,13 @@ type QuizQuestion = {
 /**
  * 获取所有测试问题
  */
-export async function getQuizQuestions(): Promise<QuizQuestion[]> {
+export async function getQuizQuestions(locale: string = 'zh'): Promise<QuizQuestion[]> {
     const supabase = await createClient()
 
     const { data, error } = await supabase
         .from('quiz_questions')
         .select('*')
+        .eq('language_code', locale)
         .order('id', { ascending: true })
 
     if (error || !data) {

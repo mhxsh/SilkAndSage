@@ -4,6 +4,7 @@ import Image from 'next/image'
 import SearchBar from '@/components/SearchBar'
 import { getDictionary } from '@/get-dictionary'
 import { Locale } from '@/i18n-config'
+import { translateTag } from '@/lib/data/tags'
 
 export default async function SearchPage({
     params,
@@ -18,7 +19,7 @@ export default async function SearchPage({
     const query = q || ''
 
     const results = query ? await searchPages(query, lang) : []
-    const allTags = await getAllTags()
+    const allTags = await getAllTags(lang)
     const popularTags = allTags.slice(0, 20) // 显示前20个最热标签
 
     return (
@@ -78,7 +79,7 @@ export default async function SearchPage({
                                                             key={tag}
                                                             className="text-xs px-2 py-1 bg-sage/10 text-sage rounded-full"
                                                         >
-                                                            {tag}
+                                                            {translateTag(tag, lang)}
                                                         </span>
                                                     ))}
                                                 </div>
@@ -110,7 +111,7 @@ export default async function SearchPage({
                                         href={`/${lang}/search?q=${encodeURIComponent(tag)}`}
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-sage/10 border border-gray-200 hover:border-sage rounded-full transition-all"
                                     >
-                                        <span>{tag}</span>
+                                        <span>{translateTag(tag, lang)}</span>
                                         <span className="text-xs text-gray-500">({count})</span>
                                     </Link>
                                 ))}

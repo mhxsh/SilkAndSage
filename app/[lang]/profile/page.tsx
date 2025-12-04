@@ -27,7 +27,7 @@ export default async function ProfilePage({
     const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single()
 
     // 获取收藏的文章
-    const favorites = await getUserFavorites(user.id)
+    const favorites = await getUserFavorites(user.id, lang)
 
     // 登出 action
     async function signOut() {
@@ -97,7 +97,7 @@ export default async function ProfilePage({
                                     className="text-sm hover:underline mt-2 inline-block"
                                     style={{ color: elementColors[profile.inner_element] }}
                                 >
-                                    查看详情 →
+                                    {dict.common.view_details} →
                                 </Link>
                             </div>
                         ) : (
@@ -164,9 +164,9 @@ export default async function ProfilePage({
                                             <h3 className="font-serif font-semibold group-hover:text-sage transition-colors line-clamp-2">
                                                 {page.translations?.[0]?.title || 'Untitled'}
                                             </h3>
-                                            {page.tags && page.tags.length > 0 && (
+                                            {page.translations?.[0]?.tags && page.translations[0].tags.length > 0 && (
                                                 <div className="flex flex-wrap gap-1 mt-2">
-                                                    {page.tags.slice(0, 2).map((tag: string) => (
+                                                    {page.translations[0].tags.slice(0, 2).map((tag: string) => (
                                                         <span
                                                             key={tag}
                                                             className="text-xs px-2 py-1 bg-sage/10 text-sage rounded-full"

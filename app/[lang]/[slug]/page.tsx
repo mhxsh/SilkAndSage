@@ -12,6 +12,8 @@ import CommentForm from '@/components/CommentForm'
 import CommentsList from '@/components/CommentsList'
 import Image from 'next/image'
 import { Locale } from '@/i18n-config'
+import { getDictionary } from '@/get-dictionary'
+import ViewCounter from '@/components/ViewCounter'
 
 interface PageProps {
     params: Promise<{
@@ -31,8 +33,8 @@ export async function generateStaticParams() {
 
 // 生成元数据
 export async function generateMetadata({ params }: PageProps) {
-    const { slug } = await params
-    const page = await getPageBySlug(slug)
+    const { slug, lang } = await params
+    const page = await getPageBySlug(slug, lang)
 
     if (!page) {
         return {
@@ -48,7 +50,8 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function ArticlePage({ params }: PageProps) {
     const { slug, lang } = await params
-    const page = await getPageBySlug(slug)
+    const page = await getPageBySlug(slug, lang)
+    const dict = await getDictionary(lang)
 
     if (!page) {
         notFound()
@@ -61,7 +64,7 @@ export default async function ArticlePage({ params }: PageProps) {
     } = await supabase.auth.getUser()
 
     // 获取相关文章
-    const relatedPages = await getRelatedPages(slug, page.tags)
+    const relatedPages = await getRelatedPages(slug, page.translations.tags, lang)
 
     // 获取评论
     const comments = await getComments(page.id)
@@ -74,11 +77,12 @@ export default async function ArticlePage({ params }: PageProps) {
 
     return (
         <div className="min-h-screen bg-cream">
+            <ViewCounter slug={slug} />
             {/* Article Header */}
             <header className="bg-white border-b border-gray-200">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="mb-4 flex flex-wrap gap-2">
-                        {page.tags && page.tags.slice(0, 5).map((tag) => (
+                        {page.translations.tags && page.translations.tags.slice(0, 5).map((tag) => (
                             <span
                                 key={tag}
                                 className="text-sm px-3 py-1 bg-sage/10 text-sage rounded-full"
@@ -136,7 +140,7 @@ export default async function ArticlePage({ params }: PageProps) {
             {/* Article Content */}
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="bg-white rounded-lg shadow-sm p-8 sm:p-12">
-                    <ArticleContent content={page.translations.generated_text} />
+                    <ArticleContent content={page.translations.generated_text} dict={dict} />
 
                     {/* Interaction Bar */}
                     <div className="flex items-center justify-between pt-8 mt-8 border-t border-gray-200">
@@ -152,8 +156,9 @@ export default async function ArticlePage({ params }: PageProps) {
                                 pageId={page.id}
                                 pageSlug={slug}
                                 initialFavorited={userFavorited}
+                                dict={dict}
                             />
-                            <ShareButton url={`/${lang}/${slug}`} title={page.translations.title} />
+                            <ShareButton url={`/${lang}/${slug}`} title={page.translations.title} dict={dict} />
                         </div>
                         {user && (
                             <RatingStars
@@ -161,6 +166,7 @@ export default async function ArticlePage({ params }: PageProps) {
                                 pageSlug={slug}
                                 initialRating={page.average_score}
                                 userRating={userRating}
+                                dict={dict}
                             />
                         )}
                     </div>
@@ -172,7 +178,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
                     {user ? (
                         <div className="mb-8">
-                            <CommentForm pageId={page.id} pageSlug={slug} />
+                            <CommentForm pageId={page.id} pageSlug={slug} dict={dict} />
                         </div>
                     ) : (
                         <div className="mb-8 p-4 bg-sage/5 rounded-lg text-center">
@@ -190,11 +196,12 @@ export default async function ArticlePage({ params }: PageProps) {
                         pageId={page.id}
                         pageSlug={slug}
                         currentUserId={user?.id}
+                        dict={dict}
                     />
                 </div>
 
                 {/* Related Articles */}
-                <RelatedArticles articles={relatedPages} lang={lang} />
+                <RelatedArticles articles={relatedPages} lang={lang} dict={dict} />
             </main>
         </div>
     )

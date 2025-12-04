@@ -30,7 +30,7 @@ export default async function QuizPage({
         redirect(`/${lang}/auth/login?redirect=/${lang}/quiz`)
     }
 
-    const questions = await getQuizQuestions()
+    const questions = await getQuizQuestions(lang)
 
     return (
         <div className="min-h-screen bg-cream py-12 px-4">

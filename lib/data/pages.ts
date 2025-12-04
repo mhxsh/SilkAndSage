@@ -15,6 +15,7 @@ type PageWithTranslation = {
     translations: {
         title: string
         generated_text: any
+        tags: string[] | null
     }
 }
 
@@ -26,6 +27,7 @@ type PageListItem = {
     average_score: number
     translations: {
         title: string
+        tags: string[] | null
     }
 }
 
@@ -53,7 +55,8 @@ export async function getPageBySlug(
       published_at,
       translations:generated_page_translations!inner(
         title,
-        generated_text
+        generated_text,
+        tags
       )
     `)
         .eq('slug', slug)
@@ -65,8 +68,7 @@ export async function getPageBySlug(
         return null
     }
 
-    // 增加浏览计数（异步，不阻塞）
-    incrementViewCount(slug).catch(console.error)
+    // 增加浏览计数已移至客户端组件 ViewCounter
 
     // Supabase returns translations as array, get first item
     const result = data as any
@@ -133,21 +135,29 @@ export async function getRelatedPages(
       published_at,
       translations:generated_page_translations!inner(
         title,
-        generated_text
+        generated_text,
+        tags
       )
     `)
         .neq('slug', currentSlug)
         .eq('status', 'published')
         .eq('translations.language_code', locale)
-        .overlaps('tags', tags)
-        .limit(limit)
 
     if (error || !data) {
         return []
     }
 
+    // 在客户端过滤具有相同标签的文章
+    const relatedPages = data
+        .filter((page: any) => {
+            const pageTags = page.translations[0]?.tags || []
+            // 检查是否有共同标签
+            return pageTags.some((tag: string) => tags.includes(tag))
+        })
+        .slice(0, limit)
+
     // Transform array translations to first item
-    return data.map((item: any) => ({
+    return relatedPages.map((item: any) => ({
         ...item,
         translations: item.translations[0],
     })) as PageWithTranslation[]
@@ -176,7 +186,8 @@ export async function getPublishedPages(
       views_count,
       average_score,
       translations:generated_page_translations!inner(
-        title
+        title,
+        tags
       )
     `,
             { count: 'exact' }

@@ -102,15 +102,15 @@ export async function filterPagesByTag(
 }
 
 /**
- * 获取所有标签（用于标签云）
+ * 获取所有标签（用于标签云），根据语言获取对应的标签
  */
-export async function getAllTags(): Promise<{ tag: string; count: number }[]> {
+export async function getAllTags(locale: string = 'zh'): Promise<{ tag: string; count: number }[]> {
     const supabase = await createClient()
 
     const { data, error } = await supabase
-        .from('generated_pages')
+        .from('generated_page_translations')
         .select('tags')
-        .eq('status', 'published')
+        .eq('language_code', locale)
 
     if (error || !data) {
         return []
@@ -119,9 +119,9 @@ export async function getAllTags(): Promise<{ tag: string; count: number }[]> {
     // 统计所有标签出现的次数
     const tagCounts: Record<string, number> = {}
 
-    data.forEach((page: any) => {
-        if (page.tags && Array.isArray(page.tags)) {
-            page.tags.forEach((tag: string) => {
+    data.forEach((translation: any) => {
+        if (translation.tags && Array.isArray(translation.tags)) {
+            translation.tags.forEach((tag: string) => {
                 tagCounts[tag] = (tagCounts[tag] || 0) + 1
             })
         }
