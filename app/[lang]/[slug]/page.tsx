@@ -1,11 +1,21 @@
 import { notFound } from 'next/navigation'
 import { getPageBySlug, getAllPublishedSlugs, getRelatedPages } from '@/lib/data/pages'
+import { getComments, checkUserLike, getLikesCount, checkUserFavorite, getUserRating } from '@/lib/data/interactions'
+import { createClient } from '@/lib/supabase/server'
 import ArticleContent from '@/components/ArticleContent'
 import RelatedArticles from '@/components/RelatedArticles'
+import LikeButton from '@/components/LikeButton'
+import FavoriteButton from '@/components/FavoriteButton'
+import RatingStars from '@/components/RatingStars'
+import ShareButton from '@/components/ShareButton'
+import CommentForm from '@/components/CommentForm'
+import CommentsList from '@/components/CommentsList'
 import Image from 'next/image'
+import { Locale } from '@/i18n-config'
 
 interface PageProps {
     params: Promise<{
+        lang: Locale
         slug: string
     }>
 }
@@ -37,15 +47,30 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function ArticlePage({ params }: PageProps) {
-    const { slug } = await params
+    const { slug, lang } = await params
     const page = await getPageBySlug(slug)
 
     if (!page) {
         notFound()
     }
 
+    // 获取当前用户
+    const supabase = await createClient()
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
+
     // 获取相关文章
     const relatedPages = await getRelatedPages(slug, page.tags)
+
+    // 获取评论
+    const comments = await getComments(page.id)
+
+    // 获取互动状态
+    const likesCount = await getLikesCount(page.id)
+    const userLiked = user ? await checkUserLike(user.id, page.id) : false
+    const userFavorited = user ? await checkUserFavorite(user.id, page.id) : false
+    const userRating = user ? await getUserRating(user.id, page.id) : null
 
     return (
         <div className="min-h-screen bg-cream">
@@ -73,14 +98,14 @@ export default async function ArticlePage({ params }: PageProps) {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
-                            {page.views_count.toLocaleString()} 阅读
+                            {page.views_count.toLocaleString()} {dict?.article?.views || 'Views'}
                         </span>
-                        {page.comments_count > 0 && (
+                        {comments.length > 0 && (
                             <span className="flex items-center gap-2">
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                                 </svg>
-                                {page.comments_count} 评论
+                                {comments.length} {dict?.article?.comments || 'Comments'}
                             </span>
                         )}
                         {page.average_score > 0 && (
@@ -112,10 +137,64 @@ export default async function ArticlePage({ params }: PageProps) {
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="bg-white rounded-lg shadow-sm p-8 sm:p-12">
                     <ArticleContent content={page.translations.generated_text} />
+
+                    {/* Interaction Bar */}
+                    <div className="flex items-center justify-between pt-8 mt-8 border-t border-gray-200">
+                        <div className="flex items-center gap-4">
+                            <LikeButton
+                                targetId={page.id}
+                                targetType="page"
+                                initialLiked={userLiked}
+                                initialCount={likesCount}
+                                pageSlug={slug}
+                            />
+                            <FavoriteButton
+                                pageId={page.id}
+                                pageSlug={slug}
+                                initialFavorited={userFavorited}
+                            />
+                            <ShareButton url={`/${lang}/${slug}`} title={page.translations.title} />
+                        </div>
+                        {user && (
+                            <RatingStars
+                                pageId={page.id}
+                                pageSlug={slug}
+                                initialRating={page.average_score}
+                                userRating={userRating}
+                            />
+                        )}
+                    </div>
+                </div>
+
+                {/* Comments Section */}
+                <div className="bg-white rounded-lg shadow-sm p-8 sm:p-12 mt-8">
+                    <h2 className="text-2xl font-serif font-bold mb-6">{dict?.article?.comments_section || 'Comments'}</h2>
+
+                    {user ? (
+                        <div className="mb-8">
+                            <CommentForm pageId={page.id} pageSlug={slug} />
+                        </div>
+                    ) : (
+                        <div className="mb-8 p-4 bg-sage/5 rounded-lg text-center">
+                            <p className="text-gray-600">
+                                <a href={`/${lang}/auth/login`} className="text-sage hover:text-sage/80 font-medium">
+                                    {dict?.common?.login || 'Login'}
+                                </Link>
+                                {' '}{dict?.article?.login_to_comment || 'to comment'}
+                            </p>
+                        </div>
+                    )}
+
+                    <CommentsList
+                        comments={comments}
+                        pageId={page.id}
+                        pageSlug={slug}
+                        currentUserId={user?.id}
+                    />
                 </div>
 
                 {/* Related Articles */}
-                <RelatedArticles articles={relatedPages} />
+                <RelatedArticles articles={relatedPages} lang={lang} />
             </main>
         </div>
     )

@@ -1,39 +1,14 @@
 import Link from "next/link";
+import { getAtmosphere } from "@/lib/theme/atmosphere";
+import AtmosphericHero from "@/components/AtmosphericHero";
 
 export default function Home() {
+  const atmosphere = getAtmosphere();
+
   return (
     <div className="bg-cream">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mb-6">
-              Ancient Wisdom for the{" "}
-              <span className="text-sage">Modern Muse</span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto">
-              献给现代缪斯的东方智慧
-            </p>
-            <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-              通过东方哲学、五行智慧与现代生活美学的结合，发现属于你的内在平衡与和谐。
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/quiz"
-                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sage hover:bg-sage/90 transition-colors"
-              >
-                发现你的内在元素
-              </Link>
-              <Link
-                href="/explore"
-                className="inline-flex items-center justify-center px-8 py-3 border border-sage text-base font-medium rounded-md text-sage bg-transparent hover:bg-sage/10 transition-colors"
-              >
-                探索文章
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AtmosphericHero atmosphere={atmosphere} />
 
       {/* Features Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">

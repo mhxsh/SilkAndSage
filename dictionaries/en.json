@@ -1,0 +1,129 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "error": "Something went wrong",
+        "not_found": "Page Not Found",
+        "back_home": "Back to Home",
+        "login": "Login",
+        "logout": "Logout",
+        "profile": "Profile",
+        "explore": "Explore",
+        "search": "Search",
+        "quiz": "Element Quiz",
+        "notifications": "Notifications",
+        "share": "Share",
+        "copy_link": "Copy Link",
+        "copied": "Copied!"
+    },
+    "home": {
+        "hero_title_suffix": "Modern Muse",
+        "hero_subtitle": "Ancient Wisdom for the Modern Muse",
+        "hero_desc": "Discover your inner balance and harmony through the fusion of Eastern philosophy, Five Elements wisdom, and modern lifestyle aesthetics.",
+        "cta_quiz": "Discover Your Element",
+        "cta_explore": "Explore Articles",
+        "features_title": "Explore Your Lifestyle Aesthetic",
+        "feature_1_title": "Five Elements Wisdom",
+        "feature_1_desc": "Personalized advice for your living space and daily habits based on ancient theory.",
+        "feature_2_title": "Inner Element Quiz",
+        "feature_2_desc": "Discover your elemental properties through a simple test and get your exclusive guide.",
+        "feature_3_title": "Eastern Aesthetics",
+        "feature_3_desc": "From Zen to Wabi-sabi, explore the Eastern aesthetic style that suits you.",
+        "join_title": "Start Your Inner Journey",
+        "join_desc": "Join the Silk & Sage community and explore the perfect fusion of Eastern wisdom and modern life with like-minded modern muses.",
+        "join_btn": "Join Now"
+    },
+    "auth": {
+        "login_title": "Welcome Back",
+        "signup_title": "Create Account",
+        "email_label": "Email",
+        "password_label": "Password",
+        "username_label": "Username",
+        "full_name_label": "Full Name",
+        "submit_login": "Sign In",
+        "submit_signup": "Sign Up",
+        "switch_to_signup": "Don't have an account? Sign up",
+        "switch_to_login": "Already have an account? Sign in",
+        "magic_link_sent": "Check your email for the login link!"
+    },
+    "quiz": {
+        "title": "Discover Your Inner Element",
+        "desc": "Based on Eastern Five Elements philosophy, we help you find your own inner element.",
+        "start_btn": "Start Quiz",
+        "question_progress": "Question {current} / {total}",
+        "prev_btn": "Previous",
+        "submit_btn": "Submit",
+        "result_title": "Your Inner Element: {element}",
+        "characteristics": "Your Characteristics",
+        "recommendations": "Life Recommendations",
+        "view_profile": "View Profile",
+        "explore_related": "Explore Related Articles"
+    },
+    "profile": {
+        "title": "Profile",
+        "welcome": "Welcome back, {name}",
+        "inner_element": "Inner Element",
+        "not_tested": "Not Tested",
+        "start_test": "Start Test",
+        "favorites": "Favorites",
+        "account_status": "Account Status",
+        "active": "Active",
+        "registered_at": "Joined on {date}",
+        "my_favorites": "My Favorites"
+    },
+    "article": {
+        "views": "Views",
+        "comments": "Comments",
+        "related": "Related Articles",
+        "comments_section": "Comments",
+        "login_to_comment": "Login to comment",
+        "reply": "Reply",
+        "delete": "Delete",
+        "write_comment": "Write a comment...",
+        "submit_comment": "Post"
+    }
+    ,
+    "about": {
+        "title": "About Silk & Sage",
+        "subtitle": "Bridging Eastern Wisdom and Modern Living",
+        "mission": {
+            "heading": "Our Mission",
+            "text": "Silk & Sage is dedicated to helping you discover the perfect alignment between your personality, spiritual essence, and lifestyle choices. We believe that true wellbeing comes from understanding yourself deeply and making intentional choices that resonate with your inner nature."
+        },
+        "vision": {
+            "heading": "Our Vision",
+            "text": "A world where ancient Eastern wisdom intersects seamlessly with contemporary living—where every choice, from the clothes you wear to the space you inhabit, reflects your authentic self and supports your holistic wellbeing."
+        },
+        "values": {
+            "heading": "Our Core Values",
+            "items": [
+                { "title": "Authenticity", "description": "We celebrate diversity and encourage you to embrace your unique personality and spiritual essence without compromise." },
+                { "title": "Wisdom", "description": "Drawing from thousands of years of Eastern philosophy, we synthesize traditional knowledge with modern psychology and wellness science." },
+                { "title": "Intentionality", "description": "We believe in conscious living—making deliberate choices that align with your values, personality, and the five elements." },
+                { "title": "Inclusivity", "description": "Our content serves everyone: MBTI enthusiasts, zodiac believers, Taoist philosophy practitioners, and anyone seeking deeper self-understanding." },
+                { "title": "Sustainability", "description": "We promote mindful consumption and timeless aesthetics that transcend fast trends, honoring both nature and quality." },
+                { "title": "Community", "description": "We foster a supportive space where people share insights, discoveries, and the joy of conscious living." }
+            ]
+        },
+        "whatWeDo": {
+            "heading": "What We Do",
+            "intro": "Silk & Sage is your personal guide to comprehensive self-discovery and mindful living.",
+            "services": [
+                { "title": "Inner Element Quiz", "description": "Discover which of the five Eastern elements (Wood, Fire, Earth, Metal, Water) resonates most with your personality. This ancient framework helps you understand your core energy and make lifestyle choices that balance and nurture it." },
+                { "title": "Personality-Aligned Content", "description": "Curated articles, guides, and recommendations tailored to your MBTI type and zodiac sign. From bedroom design to wardrobe choices, home organization to wellness practices—everything designed for YOUR unique constitution." },
+                { "title": "Mindful Curation", "description": "Hand-selected products, aesthetics, and practices that align with Eastern philosophy and modern minimalism. Quality over quantity, timelessness over trends." },
+                { "title": "Community Insights", "description": "Rate articles, share your experiences, and learn from others on similar journeys. Your feedback helps us improve and create more relevant content." }
+            ]
+        },
+        "philosophy": {
+            "heading": "Our Philosophy",
+            "paragraphs": [
+                "At Silk & Sage, we don't believe in one-size-fits-all solutions. Your MBTI type, zodiac sign, and inner element are not boxes that limit you—they're lenses that help you see yourself more clearly.",
+                "The ancient Eastern concept of the five elements (Wuxing) suggests that all phenomena can be categorized into five fundamental energies: Wood (growth), Fire (transformation), Earth (stability), Metal (refinement), and Water (adaptability). Each person embodies these elements in unique proportions, and understanding this balance is key to wellbeing.",
+                "We combine this wisdom with modern personality frameworks like MBTI and the cosmic cycles of the zodiac to provide you with deeply personalized guidance. Whether you're redesigning your living space, building a conscious wardrobe, or seeking spiritual growth, we'll help you make choices that honor your authentic self.",
+                "In a world of endless noise and options, Silk & Sage is your calm sanctuary—a place to understand yourself deeply and live intentionally."
+            ]
+        },
+        "team": { "heading": "Our Team", "description": "Silk & Sage was founded by individuals passionate about Eastern philosophy, wellness culture, and conscious living. We are designers, writers, wellness practitioners, and lifelong learners who believe in the transformative power of self-knowledge." },
+        "contact": { "heading": "Get in Touch", "text": "Have questions, feedback, or partnership inquiries? We'd love to hear from you.", "email": "Contact us at: hello@silkandsage.com" }
+    }
+}

@@ -1,54 +1,41 @@
-# IDE Files
-Thumbs.db
-.idea
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-*.bak
-*.bak.php
-*.~
-*.php~
-.svn
-*.log
-.vscode
-.readme
-*.tar.gz
-.claude
-.specify
-.kiro
-vendor
-/nbproject/private/
+*.pem
 
-# Temporary Files
-/portable/config/main-local.php
-/portable/config/params-local.php
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-/product/config/main-local.php
-/product/config/params-local.php
-/product/web/*.php
-/product/web/assets/
+# env files (can opt-in for committing if needed)
+.env*
 
-/wms/config/main-local.php
-/wms/config/params-local.php
-/wms/web/
+# vercel
+.vercel
 
-/frontend/config/main-local.php
-/frontend/config/params-local.php
-/frontend/web/*.php
-/frontend/web/assets/*
-!/frontend/web/assets/images
-!/frontend/web/assets/img
-!/frontend/web/assets/sf
-
-/ac/config/main-local.php
-/ac/config/params-local.php
-/ac/web/
-
-/api/web/
-
-/apps/index.php
-
-/console/config/main-local.php
-/console/config/params-local.php
-
-/progress/*
-
-/resources/node_modules
+# typescript
+*.tsbuildinfo
+next-env.d.ts

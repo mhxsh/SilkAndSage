@@ -12,9 +12,10 @@ interface RelatedArticle {
 
 interface RelatedArticlesProps {
     articles: RelatedArticle[]
+    lang?: string
 }
 
-export default function RelatedArticles({ articles }: RelatedArticlesProps) {
+export default function RelatedArticles({ articles, lang = 'en' }: RelatedArticlesProps) {
     if (articles.length === 0) {
         return null
     }
@@ -26,7 +27,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
                 {articles.map((article) => (
                     <Link
                         key={article.slug}
-                        href={`/${article.slug}`}
+                        href={`/${lang}/${article.slug}`}
                         className="group block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                     >
                         {article.generated_image_url && (

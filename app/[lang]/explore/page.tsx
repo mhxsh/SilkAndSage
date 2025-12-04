@@ -2,7 +2,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getPublishedPages } from '@/lib/data/pages'
 
-export default async function ExplorePage() {
+export default async function ExplorePage({
+    params,
+}: {
+    params: Promise<{ lang: string }>
+}) {
+    const { lang } = await params
     const { pages, total } = await getPublishedPages('zh', 1, 12)
 
     return (
@@ -27,7 +32,7 @@ export default async function ExplorePage() {
                             {pages.map((page) => (
                                 <Link
                                     key={page.slug}
-                                    href={`/${page.slug}`}
+                                    href={`/${lang}/${page.slug}`}
                                     className="group block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
                                 >
                                     {page.generated_image_url ? (

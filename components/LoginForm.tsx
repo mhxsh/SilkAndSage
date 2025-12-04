@@ -4,12 +4,18 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 
-export default function LoginPage() {
+interface LoginFormProps {
+    dict: any
+    lang?: string
+}
+
+export default function LoginForm({ dict, lang = 'en' }: LoginFormProps) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [mode, setMode] = useState<'signin' | 'signup'>('signin')
+    const [agreedToTerms, setAgreedToTerms] = useState(false)
     const router = useRouter()
     const supabase = createClient()
 
@@ -25,20 +31,29 @@ export default function LoginPage() {
                     password,
                 })
                 if (error) throw error
-                router.push('/profile')
+                router.push(`/${lang}/profile`)
                 router.refresh()
             } else {
+                // 注册模式下需要同意条款
+                if (!agreedToTerms) {
+                    setError(lang === 'zh' ? '请同意隐私政策和服务条款' : 'Please agree to the Privacy Policy and Terms of Service')
+                    setLoading(false)
+                    return
+                }
+                
                 const { error } = await supabase.auth.signUp({
                     email,
                     password,
                     options: {
                         data: {
                             username: email.split('@')[0], // 临时用邮箱前缀作为用户名
+                            agreed_to_terms: true,
+                            agreed_at: new Date().toISOString(),
                         },
                     },
                 })
                 if (error) throw error
-                setError('注册成功！请检查您的邮箱以验证账户。')
+                setError(lang === 'zh' ? '注册成功！请检查您的邮箱以验证账户。' : 'Registration successful! Please check your email to verify your account.')
             }
         } catch (error: any) {
             setError(error.message)
@@ -52,7 +67,7 @@ export default function LoginPage() {
             <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
                 <div>
                     <h2 className="text-center text-3xl font-serif font-bold text-gray-900">
-                        {mode === 'signin' ? '登录' : '注册'} Silk & Sage
+                        {mode === 'signin' ? dict.auth.login_title : dict.auth.signup_title}
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Ancient Wisdom for the Modern Muse
@@ -62,7 +77,7 @@ export default function LoginPage() {
                     <div className="rounded-md shadow-sm space-y-4">
                         <div>
                             <label htmlFor="email" className="sr-only">
-                                邮箱地址
+                                {dict.auth.email_label}
                             </label>
                             <input
                                 id="email"
@@ -71,14 +86,14 @@ export default function LoginPage() {
                                 autoComplete="email"
                                 required
                                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sage focus:border-sage focus:z-10 sm:text-sm"
-                                placeholder="邮箱地址"
+                                placeholder={dict.auth.email_label}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div>
                             <label htmlFor="password" className="sr-only">
-                                密码
+                                {dict.auth.password_label}
                             </label>
                             <input
                                 id="password"
@@ -87,7 +102,7 @@ export default function LoginPage() {
                                 autoComplete="current-password"
                                 required
                                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sage focus:border-sage focus:z-10 sm:text-sm"
-                                placeholder="密码"
+                                placeholder={dict.auth.password_label}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
@@ -95,8 +110,32 @@ export default function LoginPage() {
                     </div>
 
                     {error && (
-                        <div className={`text-sm ${error.includes('成功') ? 'text-green-600' : 'text-red-600'}`}>
+                        <div className={`text-sm ${error.includes('成功') || error.includes('successful') ? 'text-green-600' : 'text-red-600'}`}>
                             {error}
+                        </div>
+                    )}
+
+                    {/* Privacy Policy & Terms Agreement (Signup Only) */}
+                    {mode === 'signup' && (
+                        <div className="flex items-start gap-3 p-3 bg-sage/5 rounded-md border border-sage/20">
+                            <input
+                                type="checkbox"
+                                id="agree-terms"
+                                checked={agreedToTerms}
+                                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                                className="mt-1 rounded border-gray-300 text-sage focus:ring-sage"
+                            />
+                            <label htmlFor="agree-terms" className="text-xs text-gray-700">
+                                {lang === 'zh' ? (
+                                    <>
+                                        我同意<a href={`/${lang}/privacy`} target="_blank" className="text-sage hover:underline">隐私政策</a>和<a href={`/${lang}/terms`} target="_blank" className="text-sage hover:underline">服务条款</a>
+                                    </>
+                                ) : (
+                                    <>
+                                        I agree to the <a href={`/${lang}/privacy`} target="_blank" className="text-sage hover:underline">Privacy Policy</a> and <a href={`/${lang}/terms`} target="_blank" className="text-sage hover:underline">Terms of Service</a>
+                                    </>
+                                )}
+                            </label>
                         </div>
                     )}
 
@@ -106,7 +145,7 @@ export default function LoginPage() {
                             disabled={loading}
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sage hover:bg-sage/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sage disabled:opacity-50"
                         >
-                            {loading ? '处理中...' : mode === 'signin' ? '登录' : '注册'}
+                            {loading ? dict.common.loading : mode === 'signin' ? dict.auth.submit_login : dict.auth.submit_signup}
                         </button>
                     </div>
 
@@ -119,7 +158,7 @@ export default function LoginPage() {
                             }}
                             className="text-sm text-sage hover:text-sage/80"
                         >
-                            {mode === 'signin' ? '没有账户？立即注册' : '已有账户？立即登录'}
+                            {mode === 'signin' ? dict.auth.switch_to_signup : dict.auth.switch_to_login}
                         </button>
                     </div>
                 </form>
