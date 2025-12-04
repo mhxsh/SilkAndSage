@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 
-export default function SearchBar() {
+export default function SearchBar({ placeholder = "Search articles..." }: { placeholder?: string }) {
     const [query, setQuery] = useState('')
     const router = useRouter()
     const params = useParams()
@@ -23,7 +23,7 @@ export default function SearchBar() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="搜索文章..."
+                    placeholder={placeholder}
                     className="w-full px-4 py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sage focus:border-transparent"
                 />
                 <svg

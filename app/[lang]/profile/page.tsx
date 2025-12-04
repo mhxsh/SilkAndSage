@@ -162,7 +162,7 @@ export default async function ProfilePage({
                                         )}
                                         <div className="p-4">
                                             <h3 className="font-serif font-semibold group-hover:text-sage transition-colors line-clamp-2">
-                                                {page.translations?.[0]?.title || '未命名'}
+                                                {page.translations?.[0]?.title || 'Untitled'}
                                             </h3>
                                             {page.tags && page.tags.length > 0 && (
                                                 <div className="flex flex-wrap gap-1 mt-2">

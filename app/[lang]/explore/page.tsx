@@ -1,30 +1,33 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getPublishedPages } from '@/lib/data/pages'
+import { getDictionary } from '@/get-dictionary'
+import { Locale } from '@/i18n-config'
 
 export default async function ExplorePage({
     params,
 }: {
-    params: Promise<{ lang: string }>
+    params: Promise<{ lang: Locale }>
 }) {
     const { lang } = await params
-    const { pages, total } = await getPublishedPages('zh', 1, 12)
+    const dict = await getDictionary(lang)
+    const { pages, total } = await getPublishedPages(lang, 1, 12)
 
     return (
         <div className="min-h-screen bg-cream py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-serif font-bold text-gray-900 mb-4">
-                        探索文章
+                        {dict.explore.title}
                     </h1>
                     <p className="text-lg text-gray-600">
-                        发现属于你的东方智慧与生活美学
+                        {dict.explore.subtitle}
                     </p>
                 </div>
 
                 {pages.length === 0 ? (
                     <div className="text-center py-16">
-                        <p className="text-gray-500 text-lg">暂无文章，敬请期待...</p>
+                        <p className="text-gray-500 text-lg">{dict.explore.no_articles}</p>
                     </div>
                 ) : (
                     <>
@@ -92,7 +95,7 @@ export default async function ExplorePage({
 
                         {/* Pagination - placeholder for future */}
                         <div className="mt-12 text-center text-gray-500">
-                            显示 {pages.length} / {total} 篇文章
+                            {dict.explore.pagination_show.replace('{count}', pages.length.toString()).replace('{total}', total.toString())}
                         </div>
                     </>
                 )}

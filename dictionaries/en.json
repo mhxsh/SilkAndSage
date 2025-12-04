@@ -1,4 +1,11 @@
 {
+    "elements": {
+        "wood": "Wood",
+        "fire": "Fire",
+        "earth": "Earth",
+        "metal": "Metal",
+        "water": "Water"
+    },
     "common": {
         "loading": "Loading...",
         "error": "Something went wrong",
@@ -47,7 +54,7 @@
     },
     "quiz": {
         "title": "Discover Your Inner Element",
-        "desc": "Based on Eastern Five Elements philosophy, we help you find your own inner element.",
+        "desc": "Based on Eastern Five Elements philosophy, we'll help you find your inner element through {count} questions.",
         "start_btn": "Start Quiz",
         "question_progress": "Question {current} / {total}",
         "prev_btn": "Previous",
@@ -56,7 +63,10 @@
         "characteristics": "Your Characteristics",
         "recommendations": "Life Recommendations",
         "view_profile": "View Profile",
-        "explore_related": "Explore Related Articles"
+        "explore_related": "Explore Related Articles",
+        "no_questions": "Quiz questions not available...",
+        "answered_count": "Answered {count} questions",
+        "submit_fail": "Submission failed"
     },
     "profile": {
         "title": "Profile",
@@ -125,5 +135,52 @@
         },
         "team": { "heading": "Our Team", "description": "Silk & Sage was founded by individuals passionate about Eastern philosophy, wellness culture, and conscious living. We are designers, writers, wellness practitioners, and lifelong learners who believe in the transformative power of self-knowledge." },
         "contact": { "heading": "Get in Touch", "text": "Have questions, feedback, or partnership inquiries? We'd love to hear from you.", "email": "Contact us at: hello@silkandsage.com" }
+    },
+    "atmosphere": {
+        "spring": {
+            "name": "Awakening",
+            "greeting": "All things flourish, life awakens",
+            "psychology": "Spring corresponds to the Wood element, symbolizing growth and hope. Soft, fresh colors help ease anxiety and spark creativity and new beginnings."
+        },
+        "summer": {
+            "name": "Flourishing",
+            "greeting": "Passion ignites, vitality blooms",
+            "psychology": "Summer corresponds to the Fire element, symbolizing passion and expression. Bright warm tones elevate energy levels and spark social desire and drive."
+        },
+        "autumn": {
+            "name": "Harvest",
+            "greeting": "Golden abundance, clarity within",
+            "psychology": "Autumn corresponds to the Metal element, symbolizing harvest and order. Earth tones bring stability and security, helping with reflection and consolidation."
+        },
+        "winter": {
+            "name": "Stillness",
+            "greeting": "Quiet moments, potential brewing",
+            "psychology": "Winter corresponds to the Water element, symbolizing wisdom and introspection. Cool tones create a tranquil atmosphere, supporting deep relaxation and inner reflection."
+        },
+        "new_year": {
+            "name": "Lunar New Year",
+            "greeting": "New spring blessings, joy overflowing",
+            "psychology": "Red symbolizes celebration and energy, gold symbolizes prosperity. This high-energy color combination instantly elevates mood and brings festive joy."
+        }
+    },
+    "explore": {
+        "title": "Explore Articles",
+        "subtitle": "Discover Eastern wisdom and lifestyle aesthetics tailored for you",
+        "pagination_show": "Showing {count} / {total} articles",
+        "no_articles": "No articles yet, stay tuned..."
+    },
+    "search_page": {
+        "popular_tags": "Popular Tags",
+        "search_results": "Search Results: \"{query}\"",
+        "results_count": "({count} articles)",
+        "views": "views",
+        "no_articles": "No articles found",
+        "try_other_keywords": "Try searching with other keywords"
+    },
+    "notifications_page": {
+        "title": "Notifications",
+        "mark_all_as_read": "Mark all as read",
+        "view_details": "View details →",
+        "no_notifications": "No new notifications"
     }
 }

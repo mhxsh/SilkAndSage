@@ -2,19 +2,22 @@ import { searchPages, getAllTags } from '@/lib/data/search'
 import Link from 'next/link'
 import Image from 'next/image'
 import SearchBar from '@/components/SearchBar'
+import { getDictionary } from '@/get-dictionary'
+import { Locale } from '@/i18n-config'
 
 export default async function SearchPage({
     params,
     searchParams,
 }: {
-    params: Promise<{ lang: string }>
+    params: Promise<{ lang: Locale }>
     searchParams: Promise<{ q?: string }>
 }) {
     const { lang } = await params
+    const dict = await getDictionary(lang)
     const { q } = await searchParams
     const query = q || ''
 
-    const results = query ? await searchPages(query) : []
+    const results = query ? await searchPages(query, lang) : []
     const allTags = await getAllTags()
     const popularTags = allTags.slice(0, 20) // 显示前20个最热标签
 
@@ -23,7 +26,7 @@ export default async function SearchPage({
             <div className="max-w-7xl mx-auto">
                 {/* Search Bar */}
                 <div className="mb-12 flex justify-center">
-                    <SearchBar />
+                    <SearchBar placeholder={dict.common.search} />
                 </div>
 
                 {query ? (
@@ -31,10 +34,10 @@ export default async function SearchPage({
                         {/* Search Results */}
                         <div className="mb-8">
                             <h2 className="text-2xl font-serif font-semibold mb-4">
-                                搜索结果："{query}"
+                                {dict.search_page.search_results.replace('{query}', query)}
                                 {results.length > 0 && (
                                     <span className="text-gray-500 text-lg ml-2">
-                                        ({results.length} 篇文章)
+                                        {dict.search_page.results_count.replace('{count}', results.length.toString())}
                                     </span>
                                 )}
                             </h2>
@@ -82,7 +85,7 @@ export default async function SearchPage({
                                             )}
 
                                             <div className="text-sm text-gray-500">
-                                                {page.views_count} 阅读
+                                                {page.views_count} {dict.search_page.views}
                                             </div>
                                         </div>
                                     </Link>
@@ -90,8 +93,8 @@ export default async function SearchPage({
                             </div>
                         ) : (
                             <div className="text-center py-16">
-                                <p className="text-gray-500 text-lg mb-4">未找到相关文章</p>
-                                <p className="text-gray-400">试试搜索其他关键词</p>
+                                <p className="text-gray-500 text-lg mb-4">{dict.search_page.no_articles}</p>
+                                <p className="text-gray-400">{dict.search_page.try_other_keywords}</p>
                             </div>
                         )}
                     </>
@@ -99,7 +102,7 @@ export default async function SearchPage({
                     <>
                         {/* Popular Tags */}
                         <div>
-                            <h2 className="text-2xl font-serif font-semibold mb-6">热门标签</h2>
+                            <h2 className="text-2xl font-serif font-semibold mb-6">{dict.search_page.popular_tags}</h2>
                             <div className="flex flex-wrap gap-3">
                                 {popularTags.map(({ tag, count }) => (
                                     <Link

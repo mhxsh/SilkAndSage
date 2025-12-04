@@ -3,8 +3,16 @@ import { redirect } from 'next/navigation'
 import { getNotifications, markAllNotificationsAsRead } from '@/lib/data/notifications'
 import Link from 'next/link'
 import { revalidatePath } from 'next/cache'
+import { getDictionary } from '@/get-dictionary'
+import { Locale } from '@/i18n-config'
 
-export default async function NotificationsPage() {
+export default async function NotificationsPage({
+    params,
+}: {
+    params: Promise<{ lang: Locale }>
+}) {
+    const { lang } = await params
+    const dict = await getDictionary(lang)
     const supabase = await createClient()
 
     const {
@@ -12,7 +20,7 @@ export default async function NotificationsPage() {
     } = await supabase.auth.getUser()
 
     if (!user) {
-        redirect('/auth/login')
+        redirect(`/${lang}/auth/login`)
     }
 
     const notifications = await getNotifications(user.id)
@@ -22,7 +30,7 @@ export default async function NotificationsPage() {
         'use server'
         if (user) {
             await markAllNotificationsAsRead(user.id)
-            revalidatePath('/notifications')
+            revalidatePath(`/${lang}/notifications`)
         }
     }
 
@@ -30,14 +38,14 @@ export default async function NotificationsPage() {
         <div className="min-h-screen bg-cream py-12 px-4">
             <div className="max-w-3xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-serif font-bold text-gray-900">消息通知</h1>
+                    <h1 className="text-3xl font-serif font-bold text-gray-900">{dict.notifications_page.title}</h1>
                     {notifications.some((n) => !n.is_read) && (
                         <form action={markAllRead}>
                             <button
                                 type="submit"
                                 className="text-sm text-sage hover:text-sage/80 font-medium"
                             >
-                                全部标记为已读
+                                {dict.notifications_page.mark_all_as_read}
                             </button>
                         </form>
                     )}
@@ -70,7 +78,7 @@ export default async function NotificationsPage() {
                                                     {notification.title}
                                                 </h3>
                                                 <span className="text-xs text-gray-500 whitespace-nowrap ml-2">
-                                                    {new Date(notification.created_at).toLocaleDateString('zh-CN')}
+                                                    {new Date(notification.created_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US')}
                                                 </span>
                                             </div>
                                             <p className="text-gray-600 mt-1 text-sm line-clamp-2">
@@ -81,7 +89,7 @@ export default async function NotificationsPage() {
                                                     href={notification.link}
                                                     className="inline-block mt-3 text-sm text-sage hover:underline"
                                                 >
-                                                    查看详情 →
+                                                    {dict.notifications_page.view_details}
                                                 </Link>
                                             )}
                                         </div>
@@ -96,7 +104,7 @@ export default async function NotificationsPage() {
                         </div>
                     ) : (
                         <div className="p-12 text-center text-gray-500">
-                            <p>暂无新消息</p>
+                            <p>{dict.notifications_page.no_notifications}</p>
                         </div>
                     )}
                 </div>

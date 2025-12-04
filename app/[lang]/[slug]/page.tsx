@@ -179,7 +179,7 @@ export default async function ArticlePage({ params }: PageProps) {
                             <p className="text-gray-600">
                                 <a href={`/${lang}/auth/login`} className="text-sage hover:text-sage/80 font-medium">
                                     {dict?.common?.login || 'Login'}
-                                </Link>
+                                </a>
                                 {' '}{dict?.article?.login_to_comment || 'to comment'}
                             </p>
                         </div>

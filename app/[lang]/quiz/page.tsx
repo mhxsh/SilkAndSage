@@ -2,20 +2,32 @@ import { getQuizQuestions } from '@/lib/data/quiz'
 import QuizForm from '@/components/QuizForm'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { getDictionary } from '@/get-dictionary'
+import { Locale } from '@/i18n-config'
 
-export const metadata = {
-    title: '发现你的内在元素 | Silk & Sage',
-    description: '通过五行测试，发现你的内在元素属性',
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+    const { lang } = await params
+    const dict = await getDictionary(lang)
+    return {
+        title: `${dict.quiz.title} | Silk & Sage`,
+        description: dict.quiz.desc.replace('{count}', '5'),
+    }
 }
 
-export default async function QuizPage() {
+export default async function QuizPage({
+    params,
+}: {
+    params: Promise<{ lang: Locale }>
+}) {
+    const { lang } = await params
+    const dict = await getDictionary(lang)
     const supabase = await createClient()
     const {
         data: { user },
     } = await supabase.auth.getUser()
 
     if (!user) {
-        redirect('/auth/login?redirect=/quiz')
+        redirect(`/${lang}/auth/login?redirect=/${lang}/quiz`)
     }
 
     const questions = await getQuizQuestions()
@@ -25,18 +37,18 @@ export default async function QuizPage() {
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-12">
                     <h1 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mb-4">
-                        发现你的内在元素
+                        {dict.quiz.title}
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        基于东方五行哲学，通过 {questions.length} 个问题，我们将帮助你找到属于自己的内在元素。
+                        {dict.quiz.desc.replace('{count}', questions.length.toString())}
                     </p>
                 </div>
 
                 {questions.length > 0 ? (
-                    <QuizForm questions={questions} />
+                    <QuizForm questions={questions} dict={dict.quiz} />
                 ) : (
                     <div className="text-center py-16">
-                        <p className="text-gray-500">暂无测试题目...</p>
+                        <p className="text-gray-500">{dict.quiz.no_questions}</p>
                     </div>
                 )}
             </div>

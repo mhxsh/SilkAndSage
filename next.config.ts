@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config, { dev }) => {
+    return config
+  },
+  turbopack: {},
 };
 
 export default nextConfig;

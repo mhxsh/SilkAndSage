@@ -10,7 +10,10 @@ interface AtmosphericHeroProps {
 }
 
 export default function AtmosphericHero({ atmosphere, dict }: AtmosphericHeroProps) {
-    const { colors, greeting, psychology, name, element } = atmosphere
+    const { colors, id, element } = atmosphere
+    const atmosphereDict = dict?.atmosphere?.[id] || {}
+    const elementsDict = dict?.elements || {}
+    const homeDict = dict?.home || {}
 
     return (
         <section
@@ -44,7 +47,7 @@ export default function AtmosphericHero({ atmosphere, dict }: AtmosphericHeroPro
                         }}
                     >
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: colors.accent }} />
-                        {name} · {element}
+                        {atmosphereDict.name} · {elementsDict[element]}
                     </motion.div>
 
                     {/* Main Heading */}
@@ -55,7 +58,7 @@ export default function AtmosphericHero({ atmosphere, dict }: AtmosphericHeroPro
                         className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold mb-6 transition-colors duration-1000"
                         style={{ color: colors.text }}
                     >
-                        {greeting}
+                        {atmosphereDict.greeting}
                     </motion.h1>
 
                     {/* Psychology Description */}
@@ -66,7 +69,7 @@ export default function AtmosphericHero({ atmosphere, dict }: AtmosphericHeroPro
                         className="text-lg sm:text-xl mb-10 leading-relaxed transition-colors duration-1000"
                         style={{ color: `${colors.text}CC` }} // 80% opacity
                     >
-                        {psychology}
+                        {atmosphereDict.psychology}
                     </motion.p>
 
                     {/* CTA Buttons */}
@@ -81,7 +84,7 @@ export default function AtmosphericHero({ atmosphere, dict }: AtmosphericHeroPro
                             className="px-8 py-3 rounded-lg text-white font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
                             style={{ backgroundColor: colors.primary }}
                         >
-                            {dict?.cta_explore}
+                            {homeDict.cta_explore}
                         </Link>
                         <Link
                             href="/quiz"
@@ -91,7 +94,7 @@ export default function AtmosphericHero({ atmosphere, dict }: AtmosphericHeroPro
                                 color: colors.primary,
                             }}
                         >
-                            {dict?.cta_quiz}
+                            {homeDict.cta_quiz}
                         </Link>
                     </motion.div>
                 </div>

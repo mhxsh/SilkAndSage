@@ -16,7 +16,7 @@ export default async function Home({
     return (
         <div className="bg-cream">
             {/* Hero Section */}
-            <AtmosphericHero atmosphere={atmosphere} dict={dict.home} />
+            <AtmosphericHero atmosphere={atmosphere} dict={dict} />
 
             {/* Features Section */}
             <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
