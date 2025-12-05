@@ -4,6 +4,9 @@ import AtmosphericHero from "@/components/AtmosphericHero";
 import { getDictionary } from "@/get-dictionary";
 import { Locale } from "@/i18n-config";
 
+import { getPopularPages } from "@/lib/data/pages";
+import PopularArticles from "@/components/PopularArticles";
+
 export default async function Home({
     params,
 }: {
@@ -12,6 +15,7 @@ export default async function Home({
     const { lang } = await params;
     const dict = await getDictionary(lang);
     const atmosphere = getAtmosphere();
+    const popularArticles = await getPopularPages(lang);
 
     return (
         <div className="bg-cream">
@@ -60,6 +64,9 @@ export default async function Home({
                     </div>
                 </div>
             </section>
+
+            {/* Popular Articles Section */}
+            <PopularArticles articles={popularArticles} lang={lang} dict={dict} />
 
             {/* CTA Section */}
             <section className="py-16 px-4 sm:px-6 lg:px-8 bg-sage/5">

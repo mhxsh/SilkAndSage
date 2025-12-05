@@ -86,7 +86,9 @@
         "feature_3_desc": "From Zen to Wabi-sabi, explore the Eastern aesthetic style that suits you.",
         "join_title": "Start Your Inner Journey",
         "join_desc": "Join the Silk & Sage community and explore the perfect fusion of Eastern wisdom and modern life with like-minded modern muses.",
-        "join_btn": "Join Now"
+        "join_btn": "Join Now",
+        "popular_articles": "Trending Now",
+        "popular_desc": "Discover the most loved lifestyle guides from our community"
     },
     "auth": {
         "login_title": "Welcome Back",

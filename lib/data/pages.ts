@@ -19,7 +19,7 @@ type PageWithTranslation = {
     }
 }
 
-type PageListItem = {
+export type PageListItem = {
     slug: string
     generated_image_url: string | null
     tags: string[] | null
@@ -211,4 +211,44 @@ export async function getPublishedPages(
         pages,
         total: count || 0,
     }
+}
+
+/**
+ * 获取热门文章列表（按浏览量排序）
+ */
+export async function getPopularPages(
+    locale: string = 'zh',
+    limit: number = 6
+): Promise<PageListItem[]> {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase
+        .from('generated_pages')
+        .select(
+            `
+      slug,
+      generated_image_url,
+      tags,
+      views_count,
+      average_score,
+      translations:generated_page_translations!inner(
+        title,
+        tags
+      )
+    `
+        )
+        .eq('status', 'published')
+        .eq('translations.language_code', locale)
+        .order('views_count', { ascending: false })
+        .limit(limit)
+
+    if (error || !data) {
+        return []
+    }
+
+    // Transform array translations to first item
+    return data.map((item: any) => ({
+        ...item,
+        translations: item.translations[0],
+    })) as PageListItem[]
 }

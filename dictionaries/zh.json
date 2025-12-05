@@ -86,7 +86,9 @@
         "feature_3_desc": "从禅意到侘寂，探索适合你的东方美学风格，打造独特的生活空间。",
         "join_title": "开始你的内在探索之旅",
         "join_desc": "加入 Silk & Sage 社区，与志同道合的现代女性一起，探索东方智慧与现代生活的完美融合。",
-        "join_btn": "立即加入"
+        "join_btn": "立即加入",
+        "popular_articles": "热门精选",
+        "popular_desc": "探索最受社区喜爱的生活美学指南"
     },
     "auth": {
         "login_title": "欢迎回来",
