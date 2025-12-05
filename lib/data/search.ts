@@ -7,6 +7,7 @@ type SearchResult = {
     views_count: number
     translations: {
         title: string
+        tags: string[] | null
     }
 }
 
@@ -33,7 +34,8 @@ export async function searchPages(
       tags,
       views_count,
       translations:generated_page_translations!inner(
-        title
+        title,
+        tags
       )
     `)
         .eq('status', 'published')
@@ -47,7 +49,8 @@ export async function searchPages(
     const results = allData
         .filter((item: any) => {
             const titleMatch = item.translations[0]?.title?.toLowerCase().includes(query.toLowerCase())
-            const tagMatch = item.tags?.some((tag: string) => tag.toLowerCase().includes(query.toLowerCase()))
+            const translationTags = item.translations[0]?.tags || []
+            const tagMatch = translationTags.some((tag: string) => tag.toLowerCase().includes(query.toLowerCase()))
             return titleMatch || tagMatch
         })
         .slice(0, limit)
@@ -78,7 +81,8 @@ export async function filterPagesByTag(
       tags,
       views_count,
       translations:generated_page_translations!inner(
-        title
+        title,
+        tags
       )
     `)
         .eq('status', 'published')
@@ -91,7 +95,8 @@ export async function filterPagesByTag(
     // 在客户端过滤包含该标签的文章
     const results = allData
         .filter((item: any) => {
-            return item.tags?.includes(tag)
+            const translationTags = item.translations[0]?.tags || []
+            return translationTags.includes(tag)
         })
         .slice(0, limit)
 

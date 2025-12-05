@@ -68,7 +68,8 @@
         "share": "分享",
         "copy_link": "复制链接",
         "copied": "已复制！",
-        "view_details": "查看详情"
+        "view_details": "查看详情",
+        "wechat_share_message": "请使用微信扫一扫功能分享此页面"
     },
     "home": {
         "hero_title_suffix": "Modern Muse",
@@ -129,15 +130,31 @@
     "article": {
         "views": "阅读",
         "comments": "评论",
-        "related": "相关文章",
+        "related": "相关推荐",
         "comments_section": "评论区",
         "login_to_comment": "登录后发表评论",
         "reply": "回复",
         "delete": "删除",
+        "deleting": "删除中...",
         "write_comment": "写下你的评论...",
         "submit_comment": "发布",
+        "comment_empty": "评论内容不能为空",
         "insight_title": "东方视角",
         "solution_title": "生活方式方案",
-        "curation_title": "精选灵性单品"
+        "curation_title": "精选灵性单品",
+        "favorite": "收藏",
+        "favorited": "已收藏",
+        "your_rating": "你的评分",
+        "average_rating": "平均评分",
+        "stars": "星",
+        "click_to_rate": "点击星星进行评分",
+        "no_comments": "暂无评论，来发表第一条评论吧！",
+        "user_deleted": "评论用户已删除或不存在",
+        "confirm_delete": "确定要删除这条评论吗？",
+        "time_just_now": "刚刚",
+        "time_minutes_ago": "分钟前",
+        "time_hours_ago": "小时前",
+        "time_days_ago": "天前",
+        "locale": "zh-CN"
     }
 }
