@@ -224,7 +224,13 @@ export default function ColorHarmony({ lang }: ColorHarmonyProps) {
                         </p>
                     </div>
 
-                    <div className="text-center">
+                    <div className="text-center space-y-4">
+                        <ToolShareButton
+                            toolName="color_harmony"
+                            toolResult={result}
+                            lang={lang}
+                            dict={{}}
+                        />
                         <button
                             onClick={() => setStep('select')}
                             className="px-8 py-3 bg-white border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition-all"

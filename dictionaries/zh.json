@@ -307,5 +307,115 @@
             "text": "有任何问题、建议，或者只想分享您的心路历程？我们期待听到您的声音。",
             "email": "hello@silkandsage.com"
         }
+    },
+    "rituals": {
+        "title": "每日仪式",
+        "mindfulness": {
+            "title": "今日正念",
+            "quote": "正念语录",
+            "author": "作者",
+            "checkin": "签到",
+            "checkin_today": "今日签到",
+            "already_checked_in": "今日已签到",
+            "mood": "今日心情",
+            "mood_note": "记录你的心情",
+            "mood_note_placeholder": "今天感觉如何？",
+            "mood_options": {
+                "happy": "开心",
+                "calm": "平静",
+                "anxious": "焦虑",
+                "energetic": "充满活力",
+                "tired": "疲惫",
+                "excited": "兴奋",
+                "peaceful": "宁静",
+                "stressed": "压力"
+            },
+            "save": "保存",
+            "saving": "保存中...",
+            "saved": "已保存"
+        },
+        "morning": {
+            "title": "早安寄语",
+            "greeting": "早安",
+            "energy_advice": "今日能量建议"
+        },
+        "checkin": {
+            "title": "每日签到",
+            "stats": {
+                "total": "总签到",
+                "current_streak": "连续签到",
+                "longest_streak": "最长连续",
+                "days": "天"
+            },
+            "calendar": {
+                "title": "签到日历",
+                "checked": "已签到",
+                "not_checked": "未签到"
+            },
+            "history": {
+                "title": "签到历史",
+                "no_history": "暂无签到记录"
+            }
+        },
+        "login_required": "请先登录以使用每日仪式功能"
+    },
+    "circles": {
+        "title": "圈子",
+        "my_circles": "我的圈子",
+        "discover": "发现圈子",
+        "join": "加入圈子",
+        "leave": "退出圈子",
+        "joined": "已加入",
+        "members": "成员",
+        "posts": "动态",
+        "member_count": "{count} 位成员",
+        "post_count": "{count} 条动态",
+        "description": "描述",
+        "type": {
+            "element": "五行",
+            "mbti": "MBTI",
+            "custom": "自定义"
+        },
+        "no_circles": "暂无圈子",
+        "no_circles_desc": "还没有加入任何圈子",
+        "loading": "加载中...",
+        "error": "加载失败"
+    },
+    "topics": {
+        "title": "话题",
+        "trending": "热门话题",
+        "follow": "关注",
+        "unfollow": "取消关注",
+        "following": "已关注",
+        "participants": "参与者",
+        "posts": "内容",
+        "participant_count": "{count} 人参与",
+        "post_count": "{count} 条内容",
+        "no_topics": "暂无话题",
+        "loading": "加载中...",
+        "error": "加载失败"
+    },
+    "share": {
+        "title": "分享",
+        "generate_poster": "生成分享海报",
+        "poster_generated": "海报已生成！",
+        "share_code": "分享码",
+        "share_link": "分享链接",
+        "copy_link": "复制链接",
+        "copied": "已复制！",
+        "share_to": "分享到",
+        "wechat": "微信",
+        "weibo": "微博",
+        "twitter": "Twitter",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "footprint_settings": "足迹公开设置",
+        "make_public": "公开我的足迹",
+        "public_username": "公开用户名",
+        "public_bio": "公开简介",
+        "showcase_tools": "展示的工具",
+        "showcase_count": "展示的足迹数量",
+        "public_footprints": "公开足迹",
+        "view_public_footprint": "查看公开足迹"
     }
 }

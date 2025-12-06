@@ -33,6 +33,16 @@ export default function Footer() {
                                     {lang === 'zh' ? '元素测试' : 'Element Quiz'}
                                 </a>
                             </li>
+                            <li>
+                                <a href={`/${lang}/circles`} className="text-sm text-gray-600 hover:text-sage">
+                                    {lang === 'zh' ? '圈子' : 'Circles'}
+                                </a>
+                            </li>
+                            <li>
+                                <a href={`/${lang}/topics`} className="text-sm text-gray-600 hover:text-sage">
+                                    {lang === 'zh' ? '话题' : 'Topics'}
+                                </a>
+                            </li>
                         </ul>
                     </div>
 

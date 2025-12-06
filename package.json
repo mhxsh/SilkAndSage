@@ -13,6 +13,7 @@
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.86.0",
     "framer-motion": "^12.23.25",
+    "html2canvas": "^1.4.1",
     "lunar-javascript": "^1.7.7",
     "negotiator": "^1.0.0",
     "next": "16.0.6",

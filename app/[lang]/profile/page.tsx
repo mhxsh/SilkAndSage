@@ -65,6 +65,21 @@ export default async function ProfilePage({
         .order('viewed_at', { ascending: false })
         .limit(5)
 
+    // 获取签到统计
+    const { data: checkinStats } = await supabase
+        .from('user_checkin_stats')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
+
+    // 获取最近签到记录（最近7条）
+    const { data: recentCheckins } = await supabase
+        .from('daily_checkins')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('checkin_date', { ascending: false })
+        .limit(7)
+
     // 获取画像
     // const { data: footprints } = await getFootprints(20) // Moved to separate page
     const { data: latestPersona } = await getLatestPersona()
@@ -123,6 +138,22 @@ export default async function ProfilePage({
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-6 border-t border-gray-200">
+                            {/* Check-in Stats */}
+                            <Link
+                                href={`/${lang}/rituals/checkin`}
+                                className="p-4 bg-purple-50 rounded-lg border-2 border-purple-200 hover:border-purple-400 hover:shadow-md transition-all group"
+                            >
+                                <div className="text-sm text-gray-600 mb-1">{lang === 'zh' ? '每日签到' : 'Daily Check-in'}</div>
+                                <div className="text-2xl font-bold text-purple-700 group-hover:text-purple-800">
+                                    {checkinStats?.current_streak || 0}
+                                </div>
+                                <div className="text-xs text-gray-500 mt-2">
+                                    {lang === 'zh' 
+                                        ? `连续${checkinStats?.current_streak || 0}天` 
+                                        : `${checkinStats?.current_streak || 0} day streak`}
+                                </div>
+                            </Link>
+
                             {/* Footprint Link (New) */}
                             <Link
                                 href={`/${lang}/profile/footprints`}
@@ -132,6 +163,18 @@ export default async function ProfilePage({
                                 <div className="text-2xl font-bold text-stone-700 group-hover:text-sage">👣</div>
                                 <div className="text-xs text-gray-500 mt-2">
                                     {lang === 'zh' ? '查看记录 →' : 'View History →'}
+                                </div>
+                            </Link>
+
+                            {/* Footprint Settings Link */}
+                            <Link
+                                href={`/${lang}/profile/footprints/settings`}
+                                className="p-4 bg-purple-50 rounded-lg border-2 border-purple-200 hover:border-purple-400 hover:shadow-md transition-all group"
+                            >
+                                <div className="text-sm text-gray-600 mb-1">{lang === 'zh' ? '足迹设置' : 'Footprint Settings'}</div>
+                                <div className="text-2xl font-bold text-purple-700 group-hover:text-purple-800">⚙️</div>
+                                <div className="text-xs text-gray-500 mt-2">
+                                    {lang === 'zh' ? '公开设置 →' : 'Privacy →'}
                                 </div>
                             </Link>
 
@@ -321,6 +364,118 @@ export default async function ProfilePage({
 
                 {/* Persona Card (New) */}
                 <PersonaCard persona={latestPersona} lang={lang} userProfile={profile} />
+
+                {/* Check-in History Section */}
+                {(checkinStats || (recentCheckins && recentCheckins.length > 0)) && (
+                    <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-2xl font-serif font-bold flex items-center gap-2">
+                                ✨ {lang === 'zh' ? '每日签到' : 'Daily Check-in'}
+                            </h2>
+                            <Link
+                                href={`/${lang}/rituals/checkin`}
+                                className="text-purple-600 hover:text-purple-700 text-sm font-medium"
+                            >
+                                {lang === 'zh' ? '查看详情 →' : 'View Details →'}
+                            </Link>
+                        </div>
+
+                        {/* Stats */}
+                        {checkinStats && (
+                            <div className="grid grid-cols-3 gap-4 mb-6">
+                                <div className="text-center p-4 bg-purple-50 rounded-lg">
+                                    <div className="text-sm text-gray-600 mb-1">
+                                        {lang === 'zh' ? '总签到' : 'Total'}
+                                    </div>
+                                    <div className="text-2xl font-bold text-purple-700">
+                                        {checkinStats.total_checkins || 0}
+                                    </div>
+                                </div>
+                                <div className="text-center p-4 bg-purple-50 rounded-lg">
+                                    <div className="text-sm text-gray-600 mb-1">
+                                        {lang === 'zh' ? '连续签到' : 'Current Streak'}
+                                    </div>
+                                    <div className="text-2xl font-bold text-purple-700">
+                                        {checkinStats.current_streak || 0}
+                                    </div>
+                                </div>
+                                <div className="text-center p-4 bg-purple-50 rounded-lg">
+                                    <div className="text-sm text-gray-600 mb-1">
+                                        {lang === 'zh' ? '最长连续' : 'Longest Streak'}
+                                    </div>
+                                    <div className="text-2xl font-bold text-purple-700">
+                                        {checkinStats.longest_streak || 0}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Recent Check-ins */}
+                        {recentCheckins && recentCheckins.length > 0 && (
+                            <div className="space-y-3">
+                                <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                                    {lang === 'zh' ? '最近签到记录' : 'Recent Check-ins'}
+                                </h3>
+                                {recentCheckins.map((checkin: any) => {
+                                    const moodEmojis: Record<string, string> = {
+                                        happy: '😊',
+                                        calm: '😌',
+                                        anxious: '😰',
+                                        energetic: '⚡',
+                                        tired: '😴',
+                                        excited: '🎉',
+                                        peaceful: '🧘',
+                                        stressed: '😓'
+                                    }
+                                    return (
+                                        <div
+                                            key={checkin.id}
+                                            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-2xl">
+                                                    {checkin.mood ? moodEmojis[checkin.mood] || '📝' : '📝'}
+                                                </span>
+                                                <div>
+                                                    <div className="text-sm font-medium text-gray-800">
+                                                        {new Date(checkin.checkin_date).toLocaleDateString(
+                                                            lang === 'zh' ? 'zh-CN' : 'en-US',
+                                                            { year: 'numeric', month: 'long', day: 'numeric' }
+                                                        )}
+                                                    </div>
+                                                    {checkin.mood_note && (
+                                                        <div className="text-xs text-gray-600 mt-1 line-clamp-1">
+                                                            {checkin.mood_note}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            {checkin.mood && (
+                                                <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">
+                                                    {lang === 'zh' 
+                                                        ? dict.rituals?.mindfulness?.mood_options?.[checkin.mood] || checkin.mood
+                                                        : checkin.mood}
+                                                </span>
+                                            )}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
+
+                        {(!recentCheckins || recentCheckins.length === 0) && (
+                            <div className="text-center py-8 text-gray-500">
+                                <p className="mb-4">{lang === 'zh' ? '还没有签到记录' : 'No check-in records yet'}</p>
+                                <Link
+                                    href={`/${lang}/rituals/checkin`}
+                                    className="inline-block px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                                >
+                                    {lang === 'zh' ? '立即签到' : 'Check In Now'}
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Fortune History Section */}
                 {fortuneHistory && fortuneHistory.length > 0 && (

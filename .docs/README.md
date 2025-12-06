@@ -4,19 +4,24 @@
 
 ## 📚 文档索引
 
-### 1. 产品与策略
-*   **[PRD.md](./PRD.md) (v3.0):** 核心产品需求文档。定义了功能、用户故事和成功指标。
-*   **[req.md](./req.md):** **运营策略与品牌手册。** 详述了 "身份-解决方案" (Identity-to-Solution) 架构、pSEO 策略和品牌基调。(可视作项目的“灵魂”)。
+### 1. Product & Strategy
+*   **[PRD.md](./PRD.md) (v3.0):** Core product requirements.
+*   **[STRATEGY.md](./STRATEGY.md):** (Formerly req.md) Brand strategy, pSEO architecture, and "Identity-to-Solution" mapping.
+*   **[ROADMAP.md](./ROADMAP.md):** Consolidated project roadmap, task lists, and user checklists.
+*   **[RESOURCES.md](./RESOURCES.md):** (Formerly source.md) Eastern aesthetic knowledge graph and resource collection.
 
-### 2. 技术架构
-*   **[ARCHITECTURE.md](./ARCHITECTURE.md) (v3.0):** 系统设计，包含智能层、AI 抽象层和后台管理方案。
-*   **[DATA_MODEL.md](./DATA_MODEL.md) (v4.1):** **数据库 Schema 的唯一事实来源。** 包含所有表、枚举和触发器的完整 SQL 定义。*注：v4.1 是支持 v3.0 需求的具体实现版本。*
-*   **[API.md](./API.md) (v3.0):** REST API 规范，包括新的个性化推荐端点。
+### 2. Technical Architecture
+*   **[ARCHITECTURE.md](./ARCHITECTURE.md) (v3.0):** System design and AI layer.
+*   **[DATA_MODEL.md](./DATA_MODEL.md):** Database Schema source of truth.
+*   **[API.md](./API.md):** REST API specifications.
+*   **[DESIGN_ARCHIVE.md](./DESIGN_ARCHIVE.md):** Archive of specific feature design documents (Homepage, Tools, Feedback).
 
-### 3. 开发与运维
-*   **[DEV_OPS.md](./DEV_OPS.md) (v3.0):** 部署指南、CI/CD 流程、密钥管理和基础设施设置。
-*   **[TESTING.md](./TESTING.md) (v1.0):** 测试策略，涵盖单元测试、集成测试和端到端测试。
-*   **[PROMPTS.md](./PROMPTS.md) (v1.0):** 集中管理内容引擎和用户画像引擎使用的系统提示词 (System Prompts) 和 AI 配置。
+### 3. Development & Operations
+*   **[DEV_OPS.md](./DEV_OPS.md):** Deployment, CI/CD, and infrastructure.
+*   **[TESTING.md](./TESTING.md):** Testing strategies.
+*   **[PROMPTS.md](./PROMPTS.md):** AI System Prompts.
+*   **[GUIDES.md](./GUIDES.md):** Implementation guides, manual patches, and i18n instructions.
+*   **[DEVELOPMENT_HISTORY.md](./DEVELOPMENT_HISTORY.md):** Historical logs of implementation reports and progress summaries.
 
 ---
 

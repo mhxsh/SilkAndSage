@@ -239,6 +239,18 @@ export default function MoodTest({ lang }: MoodTestProps) {
                         </div>
                     </div>
 
+                    {/* Share Section */}
+                    {result && (
+                        <div className="bg-white rounded-lg shadow-md p-6 mb-4">
+                            <ToolShareButton
+                                toolName="mood_healing"
+                                toolResult={result}
+                                lang={lang}
+                                dict={{}}
+                            />
+                        </div>
+                    )}
+
                     <div className="bg-gray-50 p-6 text-center">
                         <button
                             onClick={() => setStep('start')}

@@ -307,5 +307,115 @@
             "text": "Have questions, suggestions, or just want to share your journey? We'd love to hear from you.",
             "email": "hello@silkandsage.com"
         }
+    },
+    "rituals": {
+        "title": "Daily Rituals",
+        "mindfulness": {
+            "title": "Today's Mindfulness",
+            "quote": "Mindfulness Quote",
+            "author": "Author",
+            "checkin": "Check In",
+            "checkin_today": "Check In Today",
+            "already_checked_in": "Already Checked In",
+            "mood": "Today's Mood",
+            "mood_note": "Record Your Mood",
+            "mood_note_placeholder": "How are you feeling today?",
+            "mood_options": {
+                "happy": "Happy",
+                "calm": "Calm",
+                "anxious": "Anxious",
+                "energetic": "Energetic",
+                "tired": "Tired",
+                "excited": "Excited",
+                "peaceful": "Peaceful",
+                "stressed": "Stressed"
+            },
+            "save": "Save",
+            "saving": "Saving...",
+            "saved": "Saved"
+        },
+        "morning": {
+            "title": "Morning Greeting",
+            "greeting": "Good Morning",
+            "energy_advice": "Today's Energy Advice"
+        },
+        "checkin": {
+            "title": "Daily Check-in",
+            "stats": {
+                "total": "Total Check-ins",
+                "current_streak": "Current Streak",
+                "longest_streak": "Longest Streak",
+                "days": "days"
+            },
+            "calendar": {
+                "title": "Check-in Calendar",
+                "checked": "Checked",
+                "not_checked": "Not Checked"
+            },
+            "history": {
+                "title": "Check-in History",
+                "no_history": "No check-in history yet"
+            }
+        },
+        "login_required": "Please log in to use daily rituals"
+    },
+    "circles": {
+        "title": "Circles",
+        "my_circles": "My Circles",
+        "discover": "Discover Circles",
+        "join": "Join Circle",
+        "leave": "Leave Circle",
+        "joined": "Joined",
+        "members": "Members",
+        "posts": "Posts",
+        "member_count": "{count} members",
+        "post_count": "{count} posts",
+        "description": "Description",
+        "type": {
+            "element": "Element",
+            "mbti": "MBTI",
+            "custom": "Custom"
+        },
+        "no_circles": "No circles yet",
+        "no_circles_desc": "You haven't joined any circles yet",
+        "loading": "Loading...",
+        "error": "Failed to load"
+    },
+    "topics": {
+        "title": "Topics",
+        "trending": "Trending Topics",
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "following": "Following",
+        "participants": "Participants",
+        "posts": "Posts",
+        "participant_count": "{count} participants",
+        "post_count": "{count} posts",
+        "no_topics": "No topics yet",
+        "loading": "Loading...",
+        "error": "Failed to load"
+    },
+    "share": {
+        "title": "Share",
+        "generate_poster": "Generate Share Poster",
+        "poster_generated": "Poster generated!",
+        "share_code": "Share Code",
+        "share_link": "Share Link",
+        "copy_link": "Copy Link",
+        "copied": "Copied!",
+        "share_to": "Share to",
+        "wechat": "WeChat",
+        "weibo": "Weibo",
+        "twitter": "Twitter",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "footprint_settings": "Footprint Privacy Settings",
+        "make_public": "Make Footprints Public",
+        "public_username": "Public Username",
+        "public_bio": "Public Bio",
+        "showcase_tools": "Showcase Tools",
+        "showcase_count": "Number of Footprints to Show",
+        "public_footprints": "Public Footprints",
+        "view_public_footprint": "View Public Footprint"
     }
 }

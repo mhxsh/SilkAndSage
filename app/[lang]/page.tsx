@@ -6,6 +6,7 @@ import { getPopularPages } from "@/lib/data/pages";
 import PopularArticles from "@/components/PopularArticles";
 import PhilosophySection from "@/components/PhilosophySection";
 import InvitationSection from "@/components/InvitationSection";
+import MindfulnessCard from "@/components/rituals/MindfulnessCard";
 
 export default async function Home({
     params,
@@ -21,6 +22,11 @@ export default async function Home({
         <div className="bg-cream">
             {/* Hero Section */}
             <AtmosphericHero atmosphere={atmosphere} dict={dict} />
+
+            {/* Daily Mindfulness Card */}
+            <div className="max-w-6xl mx-auto px-4 py-8">
+                <MindfulnessCard lang={lang} dict={dict} />
+            </div>
 
             {/* Philosophy Section - Replaces Features */}
             <PhilosophySection dict={dict} />

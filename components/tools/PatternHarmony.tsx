@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import ToolShareButton from '@/components/share/ToolShareButton'
 
 interface Recommendation {
     type: string

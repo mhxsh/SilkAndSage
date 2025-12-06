@@ -56,6 +56,18 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                         >
                             {dict?.common?.quiz || '元素测试'}
                         </Link>
+                        <Link
+                            href={`${basePath}/circles`}
+                            className="text-gray-700 hover:text-sage px-3 py-2 text-sm font-medium"
+                        >
+                            {dict?.circles?.title || '圈子'}
+                        </Link>
+                        <Link
+                            href={`${basePath}/topics`}
+                            className="text-gray-700 hover:text-sage px-3 py-2 text-sm font-medium"
+                        >
+                            {dict?.topics?.title || '话题'}
+                        </Link>
 
                         {/* Tools dropdown */}
                         <div
@@ -202,6 +214,18 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                             className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-sage/10"
                         >
                             {dict?.common?.quiz || '元素测试'}
+                        </Link>
+                        <Link
+                            href={`${basePath}/circles`}
+                            className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-sage/10"
+                        >
+                            {dict?.circles?.title || '圈子'}
+                        </Link>
+                        <Link
+                            href={`${basePath}/topics`}
+                            className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-sage/10"
+                        >
+                            {dict?.topics?.title || '话题'}
                         </Link>
 
                         {/* Tools submenu - Mobile */}

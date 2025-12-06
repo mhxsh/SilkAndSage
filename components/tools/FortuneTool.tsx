@@ -417,6 +417,18 @@ export default function FortuneTool({ dict, lang }: FortuneToolProps) {
                             </div>
                         )}
 
+                        {/* Share Section */}
+                        {fortune && (
+                            <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
+                                <ToolShareButton
+                                    toolName="fortune"
+                                    toolResult={fortune}
+                                    lang={lang}
+                                    dict={dict}
+                                />
+                            </div>
+                        )}
+
                         <div className="text-center pt-4">
                             <button
                                 onClick={() => {
