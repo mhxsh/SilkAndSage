@@ -45,7 +45,7 @@ export default async function QuizPage({
                 </div>
 
                 {questions.length > 0 ? (
-                    <QuizForm questions={questions} dict={dict.quiz} />
+                    <QuizForm questions={questions} dict={dict.quiz} lang={lang} />
                 ) : (
                     <div className="text-center py-16">
                         <p className="text-gray-500">{dict.quiz.no_questions}</p>

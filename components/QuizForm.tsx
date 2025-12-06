@@ -15,9 +15,10 @@ interface QuizQuestion {
 interface QuizFormProps {
     questions: QuizQuestion[]
     dict: any
+    lang: string
 }
 
-export default function QuizForm({ questions, dict }: QuizFormProps) {
+export default function QuizForm({ questions, dict, lang }: QuizFormProps) {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [answers, setAnswers] = useState<Record<number, string>>({})
     const [loading, setLoading] = useState(false)
@@ -61,7 +62,7 @@ export default function QuizForm({ questions, dict }: QuizFormProps) {
             }
 
             const { result } = await response.json()
-            router.push(`/quiz/result?element=${result}`)
+            router.push(`/${lang}/quiz/result?element=${result}`)
         } catch (error: any) {
             alert(error.message)
             setLoading(false)

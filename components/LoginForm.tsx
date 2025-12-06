@@ -26,10 +26,12 @@ export default function LoginForm({ dict, lang = 'en' }: LoginFormProps) {
 
         try {
             if (mode === 'signin') {
-                const { error } = await supabase.auth.signInWithPassword({
+                console.log('Attempting sign in with:', email)
+                const { data, error } = await supabase.auth.signInWithPassword({
                     email,
                     password,
                 })
+                console.log('Sign in result:', { data, error })
                 if (error) throw error
                 router.push(`/${lang}/profile`)
                 router.refresh()
@@ -40,7 +42,7 @@ export default function LoginForm({ dict, lang = 'en' }: LoginFormProps) {
                     setLoading(false)
                     return
                 }
-                
+
                 const { error } = await supabase.auth.signUp({
                     email,
                     password,

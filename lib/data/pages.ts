@@ -12,6 +12,7 @@ type PageWithTranslation = {
     average_score: number
     status: 'draft' | 'published' | 'archived'
     published_at: string | null
+    related_tools: string[] | null
     translations: {
         title: string
         generated_text: any
@@ -53,6 +54,7 @@ export async function getPageBySlug(
       average_score,
       status,
       published_at,
+      related_tools,
       translations:generated_page_translations!inner(
         title,
         generated_text,

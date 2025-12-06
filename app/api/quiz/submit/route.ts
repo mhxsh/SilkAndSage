@@ -30,6 +30,14 @@ export async function POST(request: NextRequest) {
         // 重新验证个人资料页
         revalidatePath('/profile')
 
+        // Save to Footprints
+        await supabase.from('user_footprints').insert({
+            user_id: user.id,
+            tool_name: 'Element Quiz',
+            input_context: { answers_count: Object.keys(answers).length },
+            output_result: result
+        })
+
         return NextResponse.json({ success: true, result })
     } catch (error: any) {
         console.error('Quiz submission error:', error)

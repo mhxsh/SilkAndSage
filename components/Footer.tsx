@@ -45,6 +45,11 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li>
+                                <a href={`/${lang}/feedback`} className="text-sm text-gray-600 hover:text-sage">
+                                    {lang === 'zh' ? '反馈建议' : 'Feedback'}
+                                </a>
+                            </li>
+                            <li>
                                 <a href={`/${lang}/privacy`} className="text-sm text-gray-600 hover:text-sage">
                                     {lang === 'zh' ? '隐私政策' : 'Privacy Policy'}
                                 </a>

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getPageBySlug, getAllPublishedSlugs, getRelatedPages } from '@/lib/data/pages'
 import { getComments, checkUserLike, getLikesCount, checkUserFavorite, getUserRating } from '@/lib/data/interactions'
+import { getMatchingTools } from '@/lib/data/tools'
 import { createClient } from '@/lib/supabase/server'
 import ArticleContent from '@/components/ArticleContent'
 import RelatedArticles from '@/components/RelatedArticles'
@@ -14,6 +15,7 @@ import Image from 'next/image'
 import { Locale } from '@/i18n-config'
 import { getDictionary } from '@/get-dictionary'
 import ViewCounter from '@/components/ViewCounter'
+import RelatedTools from '@/components/RelatedTools'
 
 interface PageProps {
     params: Promise<{
@@ -22,7 +24,6 @@ interface PageProps {
     }>
 }
 
-// 生成静态参数（SSG）
 export async function generateStaticParams() {
     const slugs = await getAllPublishedSlugs()
 
@@ -31,7 +32,6 @@ export async function generateStaticParams() {
     }))
 }
 
-// 生成元数据
 export async function generateMetadata({ params }: PageProps) {
     const { slug, lang } = await params
     const page = await getPageBySlug(slug, lang)
@@ -57,19 +57,21 @@ export default async function ArticlePage({ params }: PageProps) {
         notFound()
     }
 
-    // 获取当前用户
     const supabase = await createClient()
     const {
         data: { user },
     } = await supabase.auth.getUser()
 
-    // 获取相关文章
+    // Get related articles
     const relatedPages = await getRelatedPages(slug, page.translations.tags, lang)
 
-    // 获取评论
+    // Get comments
     const comments = await getComments(page.id)
 
-    // 获取互动状态
+    // Get matching tools dynamically based on tags
+    const matchingTools = await getMatchingTools(page.translations.tags)
+
+    // Get interactions
     const likesCount = await getLikesCount(page.id)
     const userLiked = user ? await checkUserLike(user.id, page.id) : false
     const userFavorited = user ? await checkUserFavorite(user.id, page.id) : false
@@ -78,7 +80,6 @@ export default async function ArticlePage({ params }: PageProps) {
     return (
         <div className="min-h-screen bg-cream">
             <ViewCounter slug={slug} />
-            {/* Article Header */}
             <header className="bg-white border-b border-gray-200">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="mb-4 flex flex-wrap gap-2">
@@ -124,7 +125,6 @@ export default async function ArticlePage({ params }: PageProps) {
                 </div>
             </header>
 
-            {/* Featured Image */}
             {page.generated_image_url && (
                 <div className="relative h-96 bg-gray-100">
                     <Image
@@ -137,12 +137,12 @@ export default async function ArticlePage({ params }: PageProps) {
                 </div>
             )}
 
-            {/* Article Content */}
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="bg-white rounded-lg shadow-sm p-8 sm:p-12">
                     <ArticleContent content={page.translations.generated_text} dict={dict} />
 
-                    {/* Interaction Bar */}
+                    <RelatedTools tools={matchingTools} lang={lang} />
+
                     <div className="flex items-center justify-between pt-8 mt-8 border-t border-gray-200">
                         <div className="flex items-center gap-4">
                             <LikeButton
@@ -172,7 +172,6 @@ export default async function ArticlePage({ params }: PageProps) {
                     </div>
                 </div>
 
-                {/* Comments Section */}
                 <div className="bg-white rounded-lg shadow-sm p-8 sm:p-12 mt-8">
                     <h2 className="text-2xl font-serif font-bold mb-6">{dict?.article?.comments_section || 'Comments'}</h2>
 
@@ -200,7 +199,6 @@ export default async function ArticlePage({ params }: PageProps) {
                     />
                 </div>
 
-                {/* Related Articles */}
                 <RelatedArticles articles={relatedPages} lang={lang} dict={dict} />
             </main>
         </div>

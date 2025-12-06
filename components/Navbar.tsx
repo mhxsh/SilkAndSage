@@ -14,6 +14,7 @@ interface NavbarProps {
 
 export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: NavbarProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [toolsMenuOpen, setToolsMenuOpen] = useState(false)
     const supabase = createClient()
     const router = useRouter()
     const pathname = usePathname()
@@ -55,6 +56,62 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                         >
                             {dict?.common?.quiz || '元素测试'}
                         </Link>
+
+                        {/* Tools dropdown */}
+                        <div
+                            className="relative"
+                            onMouseEnter={() => setToolsMenuOpen(true)}
+                            onMouseLeave={() => setToolsMenuOpen(false)}
+                        >
+                            <button
+                                className="text-gray-700 hover:text-sage px-3 py-2 text-sm font-medium flex items-center gap-1"
+                            >
+                                {lang === 'zh' ? '工具' : 'Tools'}
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            {toolsMenuOpen && (
+                                <div className="absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg py-1 border border-gray-100">
+                                    <Link
+                                        href={`${basePath}/tools/calendar`}
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/10"
+                                    >
+                                        {lang === 'zh' ? '📅 日历查询' : '📅 Calendar'}
+                                    </Link>
+                                    <Link
+                                        href={`${basePath}/tools/birthday`}
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/10"
+                                    >
+                                        {lang === 'zh' ? '🎂 生日解读' : '🎂 Birthday'}
+                                    </Link>
+                                    <Link
+                                        href={`${basePath}/tools/fortune`}
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/10"
+                                    >
+                                        {lang === 'zh' ? '🔮 今日运势' : '🔮 Fortune'}
+                                    </Link>
+                                    <Link
+                                        href={`${basePath}/tools/mood`}
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/10"
+                                    >
+                                        {lang === 'zh' ? '🧠 AI 心情疗愈' : '🧠 Mood Healing'}
+                                    </Link>
+                                    <Link
+                                        href={`${basePath}/tools/color`}
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/10"
+                                    >
+                                        {lang === 'zh' ? '🎨 色彩搭配' : '🎨 Color Harmony'}
+                                    </Link>
+                                    <Link
+                                        href={`${basePath}/tools/pattern`}
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/10"
+                                    >
+                                        {lang === 'zh' ? '🧶 纹理图案' : '🧶 Pattern Harmony'}
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
 
                         {/* Language switcher */}
                         <button
@@ -146,7 +203,49 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                         >
                             {dict?.common?.quiz || '元素测试'}
                         </Link>
-                        {/* Mobile language switch */}
+
+                        {/* Tools submenu - Mobile */}
+                        <div className="px-4 py-2">
+                            <div className="text-base font-medium text-gray-500 mb-2">{lang === 'zh' ? '工具' : 'Tools'}</div>
+                            <Link
+                                href={`${basePath}/tools/calendar`}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/5 rounded"
+                            >
+                                {lang === 'zh' ? '📅 日历查询' : '📅 Calendar'}
+                            </Link>
+                            <Link
+                                href={`${basePath}/tools/birthday`}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/5 rounded"
+                            >
+                                {lang === 'zh' ? '🎂 生日解读' : '🎂 Birthday'}
+                            </Link>
+                            <Link
+                                href={`${basePath}/tools/fortune`}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/5 rounded"
+                            >
+                                {lang === 'zh' ? '🔮 今日运势' : '🔮 Fortune'}
+                            </Link>
+                            <Link
+                                href={`${basePath}/tools/mood`}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/5 rounded"
+                            >
+                                {lang === 'zh' ? '🧠 AI 心情疗愈' : '🧠 Mood Healing'}
+                            </Link>
+                            <Link
+                                href={`${basePath}/tools/color`}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/5 rounded"
+                            >
+                                {lang === 'zh' ? '🎨 色彩搭配' : '🎨 Color Harmony'}
+                            </Link>
+                            <Link
+                                href={`${basePath}/tools/pattern`}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-sage/5 rounded"
+                            >
+                                {lang === 'zh' ? '🧶 纹理图案' : '🧶 Pattern Harmony'}
+                            </Link>
+                        </div>
+
+                        {/* Language switcher */}
                         <button
                             onClick={() => {
                                 const other = lang === 'zh' ? 'en' : 'zh'
@@ -167,7 +266,7 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                         {user ? (
                             <>
                                 <Link
-                                    href="/notifications"
+                                    href={`${basePath}/notifications`}
                                     className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-sage/10 flex justify-between items-center"
                                 >
                                     <span>{dict?.common?.notifications || '消息'}</span>
@@ -178,7 +277,7 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                                     )}
                                 </Link>
                                 <Link
-                                    href="/profile"
+                                    href={`${basePath}/profile`}
                                     className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-sage/10"
                                 >
                                     {dict?.common?.profile || '个人中心'}
@@ -192,7 +291,7 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                             </>
                         ) : (
                             <Link
-                                href="/auth/login"
+                                href={`${basePath}/auth/login`}
                                 className="block px-4 py-2 text-base font-medium text-sage hover:bg-sage/10"
                             >
                                 {dict?.common?.login || '登录'}

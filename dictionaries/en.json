@@ -129,6 +129,88 @@
         "registered_at": "Joined on {date}",
         "my_favorites": "My Favorites"
     },
+    "tools": {
+        "calendar": {
+            "title": "Chinese Calendar",
+            "subtitle": "Explore lunar calendar, solar terms, and traditional festivals",
+            "select_date": "Select Date",
+            "gregorian": "Gregorian",
+            "lunar": "Lunar",
+            "lunar_year": "Lunar Year",
+            "zodiac": "Zodiac",
+            "lunar_month": "Lunar Month",
+            "lunar_day": "Lunar Day",
+            "solar_terms": "Solar Terms",
+            "current_term": "Current Term",
+            "next_term": "Next Term",
+            "festivals": "Traditional Festivals"
+        },
+        "birthday": {
+            "title": "Birthday Analysis",
+            "subtitle": "Explore your zodiac, horoscope, and element attributes",
+            "birth_date": "Birth Date",
+            "birth_date_required": "Birth Date *",
+            "birth_time": "Birth Time",
+            "birth_time_optional": "Birth Time (Optional)",
+            "analyze": "Analyze",
+            "basic_info": "Basic Information",
+            "zodiac": "Chinese Zodiac",
+            "star_sign": "Star Sign",
+            "lunar_birthday": "Lunar Birthday",
+            "hour": "Hour",
+            "element_balance": "Element Balance",
+            "dominant_element": "Dominant Element",
+            "personality": "Personality Traits",
+            "lucky_colors": "Lucky Colors",
+            "lucky_numbers": "Lucky Numbers"
+        },
+        "fortune": {
+            "title": "Daily Fortune",
+            "subtitle": "Unveil the mysteries of your daily fortune",
+            "enter_birthday": "Please enter your birthday",
+            "check_fortune": "✨ Check Today's Fortune",
+            "revealing": "Revealing...",
+            "revealing_message": "Revealing your fortune...",
+            "fortune_for": "Fortune for {zodiac}",
+            "overall": "Overall",
+            "love": "Love",
+            "career": "Career",
+            "health": "Health",
+            "wealth": "Wealth",
+            "lucky_elements": "Lucky Elements",
+            "lucky_color": "Lucky Color",
+            "lucky_direction": "Lucky Direction",
+            "lucky_food": "Lucky Food",
+            "daily_advice": "Today's Advice",
+            "auspicious": "Do's",
+            "inauspicious": "Don'ts",
+            "recheck": "Check Again"
+        }
+    },
+    "feedback": {
+        "title": "Feedback & Suggestions",
+        "subtitle": "We value every suggestion you share",
+        "type_label": "Feedback Type",
+        "type_bug": "Bug Report",
+        "type_suggestion": "Feature Suggestion",
+        "type_content": "Content Suggestion",
+        "type_partnership": "Partnership",
+        "subject_label": "Subject",
+        "subject_placeholder": "Briefly describe your feedback",
+        "content_label": "Details",
+        "content_placeholder": "Please describe your issue or suggestion in detail...",
+        "email_label": "Contact Email",
+        "email_placeholder": "Leave your email if you'd like a response",
+        "anonymous_label": "Submit anonymously",
+        "submit_button": "Submit Feedback",
+        "submitting": "Submitting...",
+        "success_title": "Thank You for Your Feedback!",
+        "success_message": "We've received your message and will respond as soon as possible.",
+        "back_button": "Back to Home",
+        "submit_another": "Submit Another",
+        "error_message": "Submission failed, please try again later",
+        "required_fields": "Please fill in all required fields"
+    },
     "article": {
         "views": "Views",
         "comments": "Comments",
@@ -158,5 +240,72 @@
         "time_hours_ago": "hours ago",
         "time_days_ago": "days ago",
         "locale": "en-US"
+    },
+    "about": {
+        "title": "About Silk & Sage",
+        "subtitle": "Bridging Ancient Wisdom & Modern Lifestyle",
+        "mission": {
+            "heading": "Our Mission",
+            "text": "At Silk & Sage, our mission is to empower the modern soul by harmonizing the profound timeless wisdom of Eastern philosophy with the aesthetics of contemporary living. We believe that true luxury lies in balance—between the inner self and the outer world, between tradition and innovation."
+        },
+        "vision": {
+            "heading": "Our Vision",
+            "text": "We envision a world where everyone can access the tools for spiritual grounding and aesthetic elevation, creating a life that is not only beautiful to look at but meaningful to live."
+        },
+        "values": {
+            "heading": "Core Values",
+            "items": [
+                {
+                    "title": "Harmony (He)",
+                    "description": "Seeking balance in all things, inspired by the 'Middle Way' and Five Elements theory."
+                },
+                {
+                    "title": "Wisdom (Zhi)",
+                    "description": "Curating deep, actionable insights from thousands of years of human experience."
+                },
+                {
+                    "title": "Aesthetics (Mei)",
+                    "description": "Celebrating beauty in simplicity, wabi-sabi, and intentional design."
+                },
+                {
+                    "title": "Authenticity (Zhen)",
+                    "description": "Staying true to oneself and honoring the genuine roots of cultural heritage."
+                }
+            ]
+        },
+        "whatWeDo": {
+            "heading": "What We Do",
+            "intro": "We provide a sanctuary for discovery and growth through three main pillars:",
+            "services": [
+                {
+                    "title": "Eastern Insight",
+                    "description": "Decoding ancient systems like the I Ching, Feng Shui, and Five Elements into accessible guidance for modern dilemmas."
+                },
+                {
+                    "title": "Lifestyle Design",
+                    "description": "Offering curated inspiration for home decor, fashion, and wellness that aligns with your personal energy."
+                },
+                {
+                    "title": "Digital Tools",
+                    "description": "Empowering you with AI-driven tools for self-discovery, from element quizzes to daily energy forecasts."
+                }
+            ]
+        },
+        "philosophy": {
+            "heading": "Our Philosophy",
+            "paragraphs": [
+                "The name 'Silk & Sage' represents the dual nature of our existence. 'Silk' symbolizes refinement, beauty, and the flowing adaptability of water. 'Sage' represents wisdom, grounding, and the healing power of nature.",
+                "We believe that modern anxiety often stems from a disconnection from natural rhythms. By reintegrating these rhythms into our daily lives—through the colors we wear, the way we arrange our rooms, and the moments we take to reflect—we can reclaim our inner peace."
+            ]
+        },
+        "team": {
+            "heading": "The Team",
+            "description": "We are a diverse collective of designers, developers, and cultural researchers passionate about spiritual wellness and technology. United by a love for Eastern culture and modern design, we build tools that we use ourselves every day."
+        },
+        "contact": {
+            "heading": "Connect With Us",
+            "text": "Have questions, suggestions, or just want to share your journey? We'd love to hear from you.",
+            "email": "hello@silkandsage.com"
+        }
     }
 }

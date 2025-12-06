@@ -129,6 +129,88 @@
         "registered_at": "注册于 {date}",
         "my_favorites": "我的收藏"
     },
+    "tools": {
+        "calendar": {
+            "title": "农历日历查询",
+            "subtitle": "探索传统农历、二十四节气与传统节日",
+            "select_date": "选择日期",
+            "gregorian": "公历",
+            "lunar": "农历",
+            "lunar_year": "农历年",
+            "zodiac": "生肖",
+            "lunar_month": "农历月",
+            "lunar_day": "农历日",
+            "solar_terms": "二十四节气",
+            "current_term": "当前节气",
+            "next_term": "下个节气",
+            "festivals": "传统节日"
+        },
+        "birthday": {
+            "title": "生日解读",
+            "subtitle": "探索您的生肖、星座与五行属性",
+            "birth_date": "出生日期",
+            "birth_date_required": "出生日期 *",
+            "birth_time": "出生时间",
+            "birth_time_optional": "出生时间（可选）",
+            "analyze": "开始解读",
+            "basic_info": "基本信息",
+            "zodiac": "生肖",
+            "star_sign": "星座",
+            "lunar_birthday": "农历生日",
+            "hour": "时辰",
+            "element_balance": "五行平衡",
+            "dominant_element": "主导元素",
+            "personality": "性格特质",
+            "lucky_colors": "幸运颜色",
+            "lucky_numbers": "幸运数字"
+        },
+        "fortune": {
+            "title": "今日运势",
+            "subtitle": "揭开今日运势的神秘面纱",
+            "enter_birthday": "请输入您的生日",
+            "check_fortune": "✨ 查看今日运势",
+            "revealing": "正在解读...",
+            "revealing_message": "正在为您揭示运势...",
+            "fortune_for": "{zodiac} 今日运势",
+            "overall": "综合运势",
+            "love": "爱情运",
+            "career": "事业运",
+            "health": "健康运",
+            "wealth": "财富运",
+            "lucky_elements": "幸运元素",
+            "lucky_color": "幸运颜色",
+            "lucky_direction": "幸运方位",
+            "lucky_food": "开运食物",
+            "daily_advice": "今日建议",
+            "auspicious": "宜做",
+            "inauspicious": "忌做",
+            "recheck": "重新查看"
+        }
+    },
+    "feedback": {
+        "title": "问题与意见反馈",
+        "subtitle": "我们重视您的每一条建议",
+        "type_label": "反馈类型",
+        "type_bug": "问题报告",
+        "type_suggestion": "功能建议",
+        "type_content": "内容建议",
+        "type_partnership": "合作洽谈",
+        "subject_label": "主题",
+        "subject_placeholder": "简要描述您的反馈",
+        "content_label": "详细内容",
+        "content_placeholder": "请详细描述您的问题或建议...",
+        "email_label": "联系邮箱",
+        "email_placeholder": "如需回复，请留下您的邮箱",
+        "anonymous_label": "匿名反馈",
+        "submit_button": "提交反馈",
+        "submitting": "提交中...",
+        "success_title": "感谢您的反馈！",
+        "success_message": "我们已收到您的意见，会尽快处理并回复。",
+        "back_button": "返回首页",
+        "submit_another": "提交其他反馈",
+        "error_message": "提交失败，请稍后重试",
+        "required_fields": "请填写必填字段"
+    },
     "article": {
         "views": "阅读",
         "comments": "评论",
@@ -158,5 +240,72 @@
         "time_hours_ago": "小时前",
         "time_days_ago": "天前",
         "locale": "zh-CN"
+    },
+    "about": {
+        "title": "关于 Silk & Sage",
+        "subtitle": "连接古老智慧与现代生活美学",
+        "mission": {
+            "heading": "我们的使命",
+            "text": "在 Silk & Sage，我们的使命是通过将深邃的东方哲学智慧与现代生活美学相融合，为现代灵魂赋能。我们相信，真正的奢华在于平衡——在于内在自我与外在世界的和谐，在于传统与创新的共生。"
+        },
+        "vision": {
+            "heading": "我们的愿景",
+            "text": "我们致力于创造一个世界，每个人都能获得精神安顿与审美提升的工具，创造出不仅悦目而且悦心的生活方式。"
+        },
+        "values": {
+            "heading": "核心价值观",
+            "items": [
+                {
+                    "title": "和谐 (和)",
+                    "description": "受中庸之道与五行理论启发，在万物中寻求动态平衡。"
+                },
+                {
+                    "title": "智慧 (智)",
+                    "description": "从千年的人类经验中，提炼出深刻且可行的现代生活洞见。"
+                },
+                {
+                    "title": "美学 (美)",
+                    "description": "颂扬简约之美、侘寂之韵及有意识的设计。"
+                },
+                {
+                    "title": "真诚 (真)",
+                    "description": "忠于自我，尊重并致敬文化传承的真实根源。"
+                }
+            ]
+        },
+        "whatWeDo": {
+            "heading": "我们需要做什么",
+            "intro": "我们通过三大支柱为您提供探索与成长的栖息地：",
+            "services": [
+                {
+                    "title": "东方洞见",
+                    "description": "解读易经、风水、五行等古老系统，为现代困惑提供通俗易懂的指引。"
+                },
+                {
+                    "title": "生活设计",
+                    "description": "提供与您个人能量场相契合的家居装饰、时尚穿搭及养生灵感。"
+                },
+                {
+                    "title": "数字工具",
+                    "description": "利用 AI 驱动的工具为您赋能，从五行测试到每日能量预报，助您自我探索。"
+                }
+            ]
+        },
+        "philosophy": {
+            "heading": "我们的哲学",
+            "paragraphs": [
+                "品牌名称 'Silk & Sage' (丝绸与圣贤) 代表了我们存在的双重性。'Silk' 象征着精致、美感以及水一般的柔韧适应力；'Sage' 代表着智慧、落地生根以及自然的疗愈力量。",
+                "我们通过颜色、空间布局以及片刻的冥想反思，将自然的节奏重新整合进日常生活，帮助现代人找回内心的平静。"
+            ]
+        },
+        "team": {
+            "heading": "团队介绍",
+            "description": "我们是一群由设计师、开发者和文化研究者组成的多元化集体，热衷于精神健康与科技的结合。出于对东方文化和现代设计的热爱，我们打造了这些我们自己每天都在使用的工具。"
+        },
+        "contact": {
+            "heading": "联系我们",
+            "text": "有任何问题、建议，或者只想分享您的心路历程？我们期待听到您的声音。",
+            "email": "hello@silkandsage.com"
+        }
     }
 }
