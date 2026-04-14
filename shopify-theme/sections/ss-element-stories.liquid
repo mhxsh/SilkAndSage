@@ -1,0 +1,218 @@
+{%- style -%}
+  .ss-element-stories {
+    padding: 60px 20px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .ss-element-stories__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .ss-element-stories__header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    color: var(--ss-color-primary, #8A9A5B);
+    font-family: var(--ss-font-serif, serif);
+  }
+  .ss-element-stories__header p {
+    font-size: 1.1rem;
+    color: #666;
+    font-family: var(--ss-font-sans, sans-serif);
+  }
+  .ss-element-stories__grid {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    padding: 20px 5px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+  .ss-element-stories__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ss-element-card {
+    flex: 0 0 280px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+  }
+  .ss-element-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  }
+  .ss-element-card__inner {
+    padding: 40px 30px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* Element Backgrounds (Subtle 50-level) */
+  .ss-element-card--wood { background-color: #f0fdf4; border: 1px solid #dcfce7; }
+  .ss-element-card--fire { background-color: #fef2f2; border: 1px solid #fee2e2; }
+  .ss-element-card--earth { background-color: #fffbeb; border: 1px solid #fef3c7; }
+  .ss-element-card--metal { background-color: #f9fafb; border: 1px solid #f3f4f6; }
+  .ss-element-card--water { background-color: #eff6ff; border: 1px solid #dbeafe; }
+
+  /* Element Content Colors */
+  .ss-element-card--wood .ss-element-card__title { color: #166534; }
+  .ss-element-card--fire .ss-element-card__title { color: #991b1b; }
+  .ss-element-card--earth .ss-element-card__title { color: #92400e; }
+  .ss-element-card--metal .ss-element-card__title { color: #374151; }
+  .ss-element-card--water .ss-element-card__title { color: #1e40af; }
+
+  .ss-element-card__icon {
+    margin-bottom: 24px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ss-element-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .ss-element-card__symbol {
+    font-size: 36px;
+    font-weight: 700;
+    font-family: var(--ss-font-serif, serif);
+    opacity: 0.7;
+  }
+  .ss-element-card__title {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    font-family: var(--ss-font-serif, serif);
+    letter-spacing: 0.05em;
+  }
+  .ss-element-card__description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #4b5563;
+    font-family: var(--ss-font-sans, sans-serif);
+  }
+
+  @media (min-width: 1024px) {
+    .ss-element-stories__grid {
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: visible;
+    }
+    .ss-element-card {
+      flex: 0 0 calc(33.333% - 20px);
+    }
+  }
+  @media (min-width: 1200px) {
+    .ss-element-card {
+      flex: 0 0 calc(20% - 24px);
+    }
+  }
+{%- endstyle -%}
+
+<section class="ss-element-stories" id="ss-element-stories-{{ section.id }}">
+  {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+    <div class="ss-element-stories__header">
+      {%- if section.settings.title != blank -%}
+        <h2>{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p>{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="ss-element-stories__grid">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'element' -%}
+          {%- render 'ss-element-card', 
+            title: block.settings.title, 
+            element_type: block.settings.element_type, 
+            description: block.settings.description, 
+            icon: block.settings.icon,
+            block: block
+          -%}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Five Elements Stories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "五行物志"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "万物有序，相生相克"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "element",
+      "name": "Element Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "元素"
+        },
+        {
+          "type": "select",
+          "id": "element_type",
+          "label": "Element Type",
+          "options": [
+            { "value": "wood", "label": "Wood (木)" },
+            { "value": "fire", "label": "Fire (火)" },
+            { "value": "earth", "label": "Earth (土)" },
+            { "value": "metal", "label": "Metal (金)" },
+            { "value": "water", "label": "Water (水)" }
+          ],
+          "default": "wood"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "简短的元素解读..."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Five Elements Stories",
+      "blocks": [
+        { "type": "element", "settings": { "title": "木", "element_type": "wood", "description": "代表生命的萌发与舒展，富有仁爱之心。" } },
+        { "type": "element", "settings": { "title": "火", "element_type": "fire", "description": "代表热情的燃烧与光明，象征礼仪之光。" } },
+        { "type": "element", "settings": { "title": "土", "element_type": "earth", "description": "代表大地的厚重与孕育，象征诚信之基。" } },
+        { "type": "element", "settings": { "title": "金", "element_type": "metal", "description": "代表意志的坚韧与变革，象征正义之气。" } },
+        { "type": "element", "settings": { "title": "水", "element_type": "water", "description": "代表智慧的深邃与纯净，象征灵动之美。" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

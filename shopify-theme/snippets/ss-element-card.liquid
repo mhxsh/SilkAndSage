@@ -1,0 +1,34 @@
+{% comment %}
+  Snippet: ss-element-card
+  Accepts:
+  - title: {String}
+  - element_type: {String} (wood, fire, earth, metal, water)
+  - description: {String}
+  - icon: {Image}
+{% endcomment %}
+
+<div class="ss-element-card ss-element-card--{{ element_type }}">
+  <div class="ss-element-card__inner">
+    <div class="ss-element-card__icon">
+      {%- if icon != blank -%}
+        {{ icon | image_url: width: 120 | image_tag: loading: 'lazy', class: 'ss-element-card__img' }}
+      {%- else -%}
+        <div class="ss-element-card__symbol" data-element="{{ element_type }}">
+          {%- case element_type -%}
+            {%- when 'wood' -%}木
+            {%- when 'fire' -%}火
+            {%- when 'earth' -%}土
+            {%- when 'metal' -%}金
+            {%- when 'water' -%}水
+          {%- endcase -%}
+        </div>
+      {%- endif -%}
+    </div>
+    
+    <h3 class="ss-element-card__title">{{ title }}</h3>
+    
+    <div class="ss-element-card__description">
+      {{ description }}
+    </div>
+  </div>
+</div>
