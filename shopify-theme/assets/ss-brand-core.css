@@ -1,11 +1,56 @@
 /* SS Brand Core - Visual DNA */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap');
 
+/* Global Reset & Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ss-color-background);
+  color: #333;
+  font-family: var(--ss-font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
 :root {
   /* Colors */
-  --ss-bg-cream: #FFFDD0;
-  --ss-primary-sage: #8A9A5B;
-  --ss-accent-gold: #D4AF37;
+  --ss-color-background: #FFFDD0;
+  --ss-color-primary: #8A9A5B;
+  --ss-color-accent: #D4AF37;
   
   /* Typography */
   --ss-font-serif: 'Playfair Display', serif;
@@ -16,33 +61,24 @@
   --ss-transition: all 0.3s ease;
 }
 
-body {
-  background-color: var(--ss-bg-cream);
-  color: #333;
-  font-family: var(--ss-font-sans);
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--ss-font-serif);
-  color: var(--ss-primary-sage);
+  color: var(--ss-color-primary);
   margin-bottom: 1rem;
 }
 
 a {
-  color: var(--ss-primary-sage);
+  color: var(--ss-color-primary);
   text-decoration: none;
   transition: var(--ss-transition);
 }
 
 a:hover {
-  color: var(--ss-accent-gold);
+  color: var(--ss-color-accent);
 }
 
 .button-ss {
-  background-color: var(--ss-primary-sage);
+  background-color: var(--ss-color-primary);
   color: white;
   padding: 10px 20px;
   border-radius: 4px;
@@ -53,5 +89,21 @@ a:hover {
 }
 
 .button-ss:hover {
-  background-color: var(--ss-accent-gold);
+  background-color: var(--ss-color-accent);
+}
+
+/* Accessibility */
+.skip-to-content-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--ss-color-primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-to-content-link:focus {
+  top: 0;
 }
