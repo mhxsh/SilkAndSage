@@ -15,9 +15,15 @@
 
   {{ content_for_header }}
 </head>
-<body>
-  <main role="main">
+<body class="template-{{ template.name | handle }}">
+  <a class="skip-to-content-link" href="#MainContent">Skip to content</a>
+
+  {% section 'header' %}
+
+  <main id="MainContent" role="main">
     {{ content_for_layout }}
   </main>
+
+  {% section 'footer' %}
 </body>
 </html>

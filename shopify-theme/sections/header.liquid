@@ -1,0 +1,118 @@
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    }
+  ]
+}
+{% endschema %}
+
+<header class="ss-header">
+  <div class="ss-container">
+    <div class="ss-header__inner">
+      <a href="/" class="ss-header__logo">
+        <span class="ss-brand-name">Silk & Sage</span>
+      </a>
+      
+      <nav class="ss-header__nav">
+        <ul class="ss-header__menu">
+          {% for link in section.settings.menu.links %}
+            <li>
+              <a href="{{ link.url }}" class="ss-header__link">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+          <li>
+            <a href="https://silkandsage.co/quiz" class="ss-header__link ss-header__link--quiz">
+              元素测试 (Element Quiz)
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+.ss-header {
+  background-color: var(--ss-color-background);
+  border-bottom: 1px solid rgba(138, 154, 91, 0.2);
+  padding: 1.2rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ss-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ss-header__logo {
+  text-decoration: none;
+}
+
+.ss-brand-name {
+  font-family: var(--ss-font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ss-color-primary);
+  letter-spacing: -0.02em;
+}
+
+.ss-header__menu {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-header__link {
+  color: var(--ss-color-primary);
+  font-family: var(--ss-font-sans);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: var(--ss-transition);
+}
+
+.ss-header__link:hover {
+  color: var(--ss-color-accent);
+}
+
+.ss-header__link--quiz {
+  border: 1.5px solid var(--ss-color-primary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  background-color: transparent;
+  font-weight: 600;
+}
+
+.ss-header__link--quiz:hover {
+  background-color: var(--ss-color-primary);
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(138, 154, 91, 0.2);
+}
+
+.ss-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .ss-header__menu {
+    gap: 1rem;
+  }
+  .ss-header__link {
+    font-size: 0.85rem;
+  }
+}
+</style>
