@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getUnreadNotificationCount } from "@/lib/data/notifications";
 import { getDictionary } from "@/get-dictionary";
 import { Locale } from "@/i18n-config";
+import SageChat from "@/components/ai/SageChat";
 
 const playfair = Playfair_Display({
     variable: "--font-playfair",
@@ -39,6 +40,7 @@ export default async function Layout({
             <Navbar user={user} unreadCount={unreadCount} dict={dict} lang={lang} />
             <main className="flex-1">{children}</main>
             <Footer />
+            <SageChat lang={lang} />
         </div>
     );
 }

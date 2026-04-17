@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { calculateQuizResult, saveQuizResult } from '@/lib/data/quiz'
+import { calculateQuizResult, saveQuizResult, getQuizQuestions } from '@/lib/data/quiz'
 import { revalidatePath } from 'next/cache'
 
 export async function POST(request: NextRequest) {
@@ -15,14 +15,17 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        const { answers } = await request.json()
+        const { answers, locale = 'zh' } = await request.json()
 
         if (!answers || Object.keys(answers).length === 0) {
             return NextResponse.json({ error: '请完成所有问题' }, { status: 400 })
         }
 
+        // 获取完整题目列表以进行权重计算
+        const questions = await getQuizQuestions(locale)
+
         // 计算结果
-        const result = calculateQuizResult(answers)
+        const result = calculateQuizResult(answers, questions)
 
         // 保存结果
         await saveQuizResult(user.id, result, answers)
@@ -33,12 +36,12 @@ export async function POST(request: NextRequest) {
         // Save to Footprints
         await supabase.from('user_footprints').insert({
             user_id: user.id,
-            tool_name: 'Element Quiz',
+            tool_name: 'Element & TCM Quiz',
             input_context: { answers_count: Object.keys(answers).length },
             output_result: result
         })
 
-        return NextResponse.json({ success: true, result })
+        return NextResponse.json({ success: true, result: result.element })
     } catch (error: any) {
         console.error('Quiz submission error:', error)
         return NextResponse.json({ error: error.message || '提交失败' }, { status: 500 })

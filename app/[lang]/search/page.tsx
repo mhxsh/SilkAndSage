@@ -1,24 +1,30 @@
-import { searchPages, getAllTags } from '@/lib/data/search'
+import { searchPages, getAllTags, filterPagesByTag } from '@/lib/data/search'
 import Link from 'next/link'
 import Image from 'next/image'
 import SearchBar from '@/components/SearchBar'
 import { getDictionary } from '@/get-dictionary'
 import { Locale } from '@/i18n-config'
-import { translateTag } from '@/lib/data/tags'
 
 export default async function SearchPage({
     params,
     searchParams,
 }: {
     params: Promise<{ lang: Locale }>
-    searchParams: Promise<{ q?: string }>
+    searchParams: Promise<{ q?: string; tag?: string }>
 }) {
     const { lang } = await params
     const dict = await getDictionary(lang)
-    const { q } = await searchParams
+    const { q, tag } = await searchParams
     const query = q || ''
+    const tagQuery = tag || ''
 
-    const results = query ? await searchPages(query, lang) : []
+    let results = []
+    if (tagQuery) {
+        results = await filterPagesByTag(tagQuery, lang)
+    } else if (query) {
+        results = await searchPages(query, lang)
+    }
+    
     const allTags = await getAllTags(lang)
     const popularTags = allTags.slice(0, 20) // 显示前20个最热标签
 
@@ -30,12 +36,12 @@ export default async function SearchPage({
                     <SearchBar placeholder={dict.common.search} />
                 </div>
 
-                {query ? (
+                {query || tagQuery ? (
                     <>
                         {/* Search Results */}
                         <div className="mb-8">
                             <h2 className="text-2xl font-serif font-semibold mb-4">
-                                {dict.search_page.search_results.replace('{query}', query)}
+                                {dict.search_page.search_results.replace('{query}', query || tagQuery)}
                                 {results.length > 0 && (
                                     <span className="text-gray-500 text-lg ml-2">
                                         {dict.search_page.results_count.replace('{count}', results.length.toString())}
@@ -72,14 +78,14 @@ export default async function SearchPage({
                                                 {page.translations.title}
                                             </h3>
 
-                                            {page.tags && page.tags.length > 0 && (
+                                            {page.translations.tags && page.translations.tags.length > 0 && (
                                                 <div className="flex flex-wrap gap-2 mb-3">
-                                                    {page.tags.slice(0, 3).map((tag) => (
+                                                    {page.translations.tags.slice(0, 3).map((tag) => (
                                                         <span
                                                             key={tag}
                                                             className="text-xs px-2 py-1 bg-sage/10 text-sage rounded-full"
                                                         >
-                                                            {translateTag(tag, lang)}
+                                                            {tag}
                                                         </span>
                                                     ))}
                                                 </div>
@@ -108,10 +114,10 @@ export default async function SearchPage({
                                 {popularTags.map(({ tag, count }) => (
                                     <Link
                                         key={tag}
-                                        href={`/${lang}/search?q=${encodeURIComponent(tag)}`}
+                                        href={`/${lang}/search?tag=${encodeURIComponent(tag)}`}
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-sage/10 border border-gray-200 hover:border-sage rounded-full transition-all"
                                     >
-                                        <span>{translateTag(tag, lang)}</span>
+                                        <span>{tag}</span>
                                         <span className="text-xs text-gray-500">({count})</span>
                                     </Link>
                                 ))}
