@@ -7,74 +7,39 @@ export default function Footer() {
     const lang = (params?.lang as string) || 'en'
 
     return (
-        <footer className="bg-white border-t border-gray-200 mt-auto">
-            <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <footer className="bg-white border-t border-gray-100 py-12">
+            <div className="max-w-6xl mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Column 1: Branding */}
                     <div>
-                        <h3 className="text-lg font-serif font-semibold text-gray-900 mb-4">Silk & Sage</h3>
-                        <p className="text-sm text-gray-600">
-                            Ancient Wisdom for the Modern Muse.
-                        </p>
-                        <p className="text-sm text-gray-600 mt-2">
-                            献给现代缪斯的东方智慧。
+                        <h3 className="font-serif text-xl font-bold text-sage mb-4">Silk & Sage</h3>
+                        <p className="text-sm text-gray-500">
+                            {lang === 'zh' ? '东方智慧与现代美学的交汇。' : 'Where Eastern wisdom meets modern aesthetics.'}
                         </p>
                     </div>
 
+                    {/* Column 2: Navigation */}
                     <div>
-                        <h4 className="text-sm font-semibold text-gray-900 mb-4">{lang === 'zh' ? '探索' : 'Explore'}</h4>
-                        <ul className="space-y-2">
-                            <li>
-                                <a href={`/${lang}/explore`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '文章' : 'Articles'}
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`/${lang}/quiz`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '元素测试' : 'Element Quiz'}
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`/${lang}/circles`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '圈子' : 'Circles'}
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`/${lang}/topics`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '话题' : 'Topics'}
-                                </a>
-                            </li>
+                        <h4 className="font-bold text-gray-900 mb-4">{lang === 'zh' ? '导航' : 'Explore'}</h4>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                            <li><a href={`/${lang}/explore`} className="hover:text-sage">{lang === 'zh' ? '探索' : 'Explore'}</a></li>
+                            <li><a href={`/${lang}/quiz`} className="hover:text-sage">{lang === 'zh' ? '测试' : 'Quiz'}</a></li>
+                            <li><a href={`/${lang}/about`} className="hover:text-sage">{lang === 'zh' ? '关于我们' : 'About'}</a></li>
                         </ul>
                     </div>
 
+                    {/* Column 3: Legal */}
                     <div>
-                        <h4 className="text-sm font-semibold text-gray-900 mb-4">{lang === 'zh' ? '关于' : 'About'}</h4>
-                        <ul className="space-y-2">
-                            <li>
-                                <a href={`/${lang}/about`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '关于我们' : 'About Us'}
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`/${lang}/feedback`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '反馈建议' : 'Feedback'}
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`/${lang}/privacy`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '隐私政策' : 'Privacy Policy'}
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`/${lang}/terms`} className="text-sm text-gray-600 hover:text-sage">
-                                    {lang === 'zh' ? '服务条款' : 'Terms of Service'}
-                                </a>
-                            </li>
+                        <h4 className="font-bold text-gray-900 mb-4">{lang === 'zh' ? '法律' : 'Legal'}</h4>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                            <li><a href={`/${lang}/privacy`} className="hover:text-sage">{lang === 'zh' ? '隐私政策' : 'Privacy'}</a></li>
+                            <li><a href={`/${lang}/terms`} className="hover:text-sage">{lang === 'zh' ? '使用条款' : 'Terms'}</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                    <p className="text-sm text-gray-500 text-center">
+                <div className="mt-12 pt-8 border-t border-gray-100">
+                    <p className="text-xs text-gray-500 text-center">
                         © {new Date().getFullYear()} Silk & Sage. {lang === 'zh' ? '版权所有。保留所有权利。' : 'All rights reserved.'}
                     </p>
                 </div>

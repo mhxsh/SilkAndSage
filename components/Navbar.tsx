@@ -56,18 +56,6 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
                         >
                             {dict?.common?.quiz || '元素测试'}
                         </Link>
-                        <Link
-                            href={`${basePath}/circles`}
-                            className="text-gray-700 hover:text-sage px-3 py-2 text-sm font-medium"
-                        >
-                            {dict?.circles?.title || '圈子'}
-                        </Link>
-                        <Link
-                            href={`${basePath}/topics`}
-                            className="text-gray-700 hover:text-sage px-3 py-2 text-sm font-medium"
-                        >
-                            {dict?.topics?.title || '话题'}
-                        </Link>
 
                         {/* Tools dropdown */}
                         <div
@@ -146,17 +134,6 @@ export default function Navbar({ user, unreadCount = 0, dict, lang = 'en' }: Nav
 
                         {user ? (
                             <>
-                                <Link
-                                    href={`${basePath}/notifications`}
-                                    className="text-gray-700 hover:text-sage px-3 py-2 text-sm font-medium relative"
-                                >
-                                    {dict?.common?.notifications || '消息'}
-                                    {unreadCount > 0 && (
-                                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                                            {unreadCount > 9 ? '9+' : unreadCount}
-                                        </span>
-                                    )}
-                                </Link>
                                 <Link
                                     href={`${basePath}/profile`}
                                     className="text-gray-700 hover:text-sage px-3 py-2 text-sm font-medium"

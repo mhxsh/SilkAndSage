@@ -8,7 +8,8 @@ interface QuizQuestion {
     question_text: string
     answers: Array<{
         text: string
-        element: string
+        element?: string
+        tcm_weights?: any
     }>
 }
 
@@ -24,10 +25,10 @@ export default function QuizForm({ questions, dict, lang }: QuizFormProps) {
     const [loading, setLoading] = useState(false)
     const router = useRouter()
 
-    const handleAnswer = (element: string) => {
+    const handleAnswer = (value: string) => {
         const newAnswers = {
             ...answers,
-            [questions[currentQuestion].id]: element,
+            [questions[currentQuestion].id]: value,
         }
         setAnswers(newAnswers)
 
@@ -53,7 +54,10 @@ export default function QuizForm({ questions, dict, lang }: QuizFormProps) {
             const response = await fetch('/api/quiz/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answers: finalAnswers }),
+                body: JSON.stringify({ 
+                    answers: finalAnswers,
+                    locale: lang 
+                }),
             })
 
             if (!response.ok) {
@@ -71,6 +75,16 @@ export default function QuizForm({ questions, dict, lang }: QuizFormProps) {
 
     const progress = ((currentQuestion + 1) / questions.length) * 100
     const question = questions[currentQuestion]
+
+    if (loading) {
+        return (
+            <div className="max-w-2xl mx-auto flex flex-col items-center justify-center min-h-[400px] text-center">
+                <div className="w-16 h-16 border-4 border-sage border-t-transparent rounded-full animate-spin mb-6"></div>
+                <h3 className="text-xl font-serif text-gray-800 mb-2">AI 正在结合中医典籍分析您的体质能量...</h3>
+                <p className="text-gray-500">这可能需要几秒钟，请稍候</p>
+            </div>
+        )
+    }
 
     return (
         <div className="max-w-2xl mx-auto">
@@ -98,7 +112,7 @@ export default function QuizForm({ questions, dict, lang }: QuizFormProps) {
                     {question.answers.map((answer, index) => (
                         <button
                             key={index}
-                            onClick={() => handleAnswer(answer.element)}
+                            onClick={() => handleAnswer(answer.element || answer.text)}
                             disabled={loading}
                             className="w-full text-left px-6 py-4 bg-gray-50 hover:bg-sage/10 border-2 border-transparent hover:border-sage rounded-lg transition-all disabled:opacity-50"
                         >
